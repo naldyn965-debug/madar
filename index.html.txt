@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مَدار | الوعي والتمكين الدراسي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --accent: #2dd4bf;
+            --accent-glow: rgba(45, 212, 191, 0.15);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --danger: #fb7185;
+            --warning: #facc15;
+            --glass: rgba(255, 255, 255, 0.05);
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --nav-bg: rgba(15, 23, 42, 0.8);
+            --shadow-premium: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            /* الظل الاحترافي الجديد - متعدد الطبقات لضمان التداخل */
+            --shadow-video: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.2),
+                0 10px 20px -5px rgba(0, 0, 0, 0.4),
+                0 20px 40px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-main: #f8fafc;
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --accent: #0d9488;
+            --accent-glow: rgba(13, 148, 136, 0.08);
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --glass: rgba(0, 0, 0, 0.04);
+            --nav-bg: rgba(248, 250, 252, 0.8);
+            --shadow-premium: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --shadow-video: 
+                0 10px 15px -3px rgba(0, 0, 0, 0.05),
+                0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg-main); color: var(--text-primary); line-height: 1.8; overflow-x: hidden; transition: background 0.6s ease; }
+
+        body::before {
+            content: ''; position: fixed; top: -10%; left: -10%; width: 40%; height: 40%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            z-index: -1; filter: blur(80px); pointer-events: none;
+        }
+
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 0.8rem 6%; background: var(--nav-bg); backdrop-filter: blur(20px); 
+            position: sticky; top: 0; z-index: 2000; 
+            border-bottom: 1px solid var(--glass);
+            box-shadow: var(--shadow-premium);
+        }
+        .logo { font-size: 1.9rem; font-weight: 800; color: var(--accent); letter-spacing: -1.5px; position: relative; }
+        .logo::after { content: ''; position: absolute; bottom: 8px; left: -10px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
+
+        .nav-actions { display: flex; align-items: center; gap: 12px; }
+
+        .theme-toggle {
+            background: var(--glass); border: 1px solid var(--glass); color: var(--text-primary);
+            width: 42px; height: 42px; border-radius: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition);
+            position: relative; overflow: hidden;
+        }
+        .theme-toggle:hover { border-color: var(--accent); transform: scale(1.05); }
+        .theme-toggle svg { position: absolute; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); fill: none; stroke: currentColor; stroke-width: 2; }
+        .sun-icon { transform: translateY(40px) rotate(180deg); opacity: 0; }
+        .moon-icon { transform: translateY(0) rotate(0); opacity: 1; }
+        [data-theme="light"] .sun-icon { transform: translateY(0) rotate(0); opacity: 1; }
+        [data-theme="light"] .moon-icon { transform: translateY(-40px) rotate(-180deg); opacity: 0; }
+
+        .btn-about {
+            background: linear-gradient(135deg, var(--accent), #0fb9b1);
+            color: #0b0f1a !important; border: none; padding: 8px 18px; 
+            border-radius: 12px; cursor: pointer; font-size: 0.85rem; font-weight: 700;
+            transition: var(--transition); box-shadow: 0 4px 15px var(--accent-glow);
+        }
+        .btn-about:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--accent-glow); opacity: 0.9; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 5% 10rem 5%; }
+        .page { display: none; }
+        .page.active { display: block; animation: pageIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        
+        @keyframes pageIn { from { opacity: 0; transform: translateY(30px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+        .card { background: var(--bg-card); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 28px; padding: 2.2rem; border: 1px solid var(--glass); margin-bottom: 2rem; transition: var(--transition); position: relative; box-shadow: var(--shadow-premium); overflow: hidden; }
+        .card:hover { border-color: rgba(45, 212, 191, 0.5); transform: translateY(-5px); }
+        .knowledge-tag { display: inline-block; padding: 5px 14px; border-radius: 50px; background: var(--accent-glow); color: var(--accent); font-size: 0.75rem; font-weight: 600; margin-bottom: 1.2rem; border: 1px solid rgba(45, 212, 191, 0.2); }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.8rem; }
+
+        .video-grid { 
+            display: flex;
+            overflow-x: auto;
+            gap: 25px;
+            padding: 25px 5% 45px 5%; 
+            scrollbar-width: none; 
+            scroll-behavior: smooth;
+            box-sizing: border-box;
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch;
+            transform: translateZ(0);
+        }
+        .video-grid::-webkit-scrollbar { display: none; }
+
+        .scroll-indicator-container {
+            width: 100px;
+            height: 4px;
+            background: var(--glass);
+            margin: -25px auto 25px auto;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+        }
+        .scroll-progress-bar {
+            position: absolute;
+            left: 0; top: 0; height: 100%; width: 0%;
+            background: var(--accent);
+            border-radius: 10px;
+            box-shadow: 0 0 15px var(--accent);
+            will-change: width;
+            transition: width 0.1s linear;
+        }
+
+        /* تعديل ظلال الفيديو لتصبح أكثر احترافية وتداخلاً */
+        .video-card { 
+            flex: 0 0 320px;
+            position: relative; 
+            border-radius: 24px; 
+            overflow: hidden; 
+            background: #000; 
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.5s ease;
+            box-shadow: var(--shadow-video); /* استخدام الظل متعدد الطبقات */
+            aspect-ratio: 16/9;
+            scroll-snap-align: center;
+            will-change: transform, box-shadow; 
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+        @media (min-width: 768px) { .video-card { flex: 0 0 380px; } }
+
+        .video-card:hover { 
+            transform: translateY(-12px) scale(1.03);
+            z-index: 10;
+            border-color: var(--accent); 
+            /* ظل Hover مكثف مع توهج ناعم */
+            box-shadow: 
+                0 20px 40px -10px rgba(0, 0, 0, 0.7),
+                0 0 20px 0 var(--accent-glow);
+        }
+
+        .video-card iframe { 
+            width: 100%; height: 100%; border: none; display: block;
+            filter: brightness(0.9);
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: auto;
+        }
+        .video-card:hover iframe { filter: brightness(1.05); }
+
+        .video-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0; top: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .video-card:hover .video-overlay { opacity: 1; transform: translateY(0); }
+        .v-title { color: #fff; font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; transform: translateY(10px); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .v-meta { color: var(--accent); font-size: 0.85rem; font-weight: 600; transform: translateY(10px); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s; }
+        .video-card:hover .v-title, .video-card:hover .v-meta { transform: translateY(0); }
+
+        .choice-btn { display: block; width: 100%; padding: 1.2rem; margin: 0.8rem 0; background: var(--glass); backdrop-filter: blur(5px); border: 1px solid var(--glass); border-radius: 18px; color: var(--text-primary); cursor: pointer; text-align: right; font-family: inherit; font-size: 1rem; transition: var(--transition); }
+        .choice-btn:hover:not(:disabled) { background: var(--accent-glow); border-color: var(--accent); color: var(--accent); padding-right: 1.5rem; }
+
+        .nav-bar { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); background: var(--nav-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); padding: 10px 15px; border-radius: 25px; display: flex; gap: 5px; border: 1px solid var(--glass); z-index: 2000; width: 92%; max-width: 500px; justify-content: space-around; box-shadow: var(--shadow-premium); }
+        .nav-item { background: none; border: none; color: var(--text-secondary); cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.75rem; padding: 8px 12px; border-radius: 18px; transition: var(--transition); display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+        .nav-item svg { width: 22px; height: 22px; stroke-width: 2; transition: var(--transition); }
+        .nav-item.active { color: var(--accent); background: var(--accent-glow); font-weight: 700; }
+        .nav-item.active svg { stroke: var(--accent); transform: translateY(-2px); filter: drop-shadow(0 0 5px var(--accent)); }
+
+        .badge-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .badge-item { background: var(--glass); padding: 15px 10px; border-radius: 15px; text-align: center; border: 1px solid var(--glass); filter: grayscale(1); opacity: 0.4; }
+        .badge-item.unlocked { filter: grayscale(0); opacity: 1; border-color: var(--accent); }
+        .avatar-circle { width: 90px; height: 90px; background: linear-gradient(135deg, var(--accent), #0d9488); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: white; }
+        #chat-window { height: 480px; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 15px; background: var(--glass); border-radius: 25px; margin-bottom: 1.2rem; }
+        .bubble { max-width: 80%; padding: 14px 18px; border-radius: 22px; font-size: 0.95rem; }
+        .bubble.mine { align-self: flex-end; background: var(--accent); color: #0b0f1a; border-bottom-right-radius: 4px; }
+        .bubble.other { align-self: flex-start; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--glass); border-bottom-left-radius: 4px; }
+        .chat-input-container { display: flex; gap: 10px; align-items: center; background: var(--bg-card); padding: 8px 12px; border-radius: 100px; border: 1px solid var(--glass); }
+        #chat-input-field { flex: 1; background: none; border: none; padding: 12px; color: var(--text-primary); outline: none; font-family: inherit; }
+        .send-btn { background: var(--accent); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+        input, textarea { width: 100%; background: var(--glass); border: 1px solid var(--glass); color: var(--text-primary); padding: 1rem; border-radius: 15px; outline: none; margin-top: 10px; font-family: inherit; }
+        .myth-card { border-right: 4px solid var(--danger); cursor: pointer; }
+        .truth-reveal { display: none; margin-top: 1rem; color: var(--accent); }
+        .myth-card.revealed .truth-reveal { display: block; }
+        .tip-box { background: var(--accent-glow); border: 1px dashed var(--accent); padding: 1rem; border-radius: 12px; margin-top: 10px; display: none; }
+        .tip-active .tip-box { display: block; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">مَدار</div>
+    <div class="nav-actions">
+        <div id="user-badge" style="font-size: 0.75rem; color: var(--text-secondary); background: var(--glass); padding: 5px 10px; border-radius: 8px;"></div>
+        <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" aria-label="تبديل الوضع">
+            <svg class="sun-icon" viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" width="22" height="22"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <button class="btn-about" onclick="showPage('about')">من نحن</button>
+    </div>
+</nav>
+
+<div class="container">
+    <section id="awareness" class="page active">
+        <div class="card" style="background: linear-gradient(135deg, var(--bg-card), var(--accent-glow)); border-color: var(--accent);">
+            <span class="knowledge-tag">تحدي اليوم</span>
+            <h3 id="daily-commitment">...</h3>
+        </div>
+        
+        <div class="card" style="padding-left: 0; padding-right: 0;">
+            <span class="knowledge-tag" style="margin-right: 2.2rem;">مرئيات الوعي</span>
+            <h3 style="margin-right: 2.2rem; margin-bottom: 1rem;">مكتبة الوعي الذاتي</h3>
+            <div class="video-grid" id="vg1" onscroll="requestTick('vg1', 'bar1')">
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/GPD9GRWDuZM" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">سيكولوجية المكافأة</div><div class="v-meta">استعادة التحكم في الدوبامين</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/tUzuq3YyPM8" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">التحرر من العادات</div><div class="v-meta">دليل التعافي العملي</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/nvmk-qR-gzk" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">إدارة المشاعر</div><div class="v-meta">كيف تواجه الضغوط بذكاء</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/CtPd9xJF1VA" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">قوة الإرادة</div><div class="v-meta">بناء الانضباط الذاتي</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/it4XNGtVVQw" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">الهدوء الداخلي</div><div class="v-meta">تقنيات الاسترخاء العميق</div></div>
+                </div>
+            </div>
+            <div class="scroll-indicator-container"><div class="scroll-progress-bar" id="bar1"></div></div>
+        </div>
+
+        <div class="card">
+            <span class="knowledge-tag">عادات اليوم</span>
+            <h3>عادات ذهنية سريعة</h3>
+            <div class="grid" style="grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                <button class="choice-btn" id="h-breath" onclick="completeHabit('h-breath', 15)" style="font-size:0.75rem; text-align:center;">تنفس</button>
+                <button class="choice-btn" id="h-water" onclick="completeHabit('h-water', 15)" style="font-size:0.75rem; text-align:center;">ماء</button>
+                <button class="choice-btn" id="h-no-phone" onclick="completeHabit('h-no-phone', 15)" style="font-size:0.75rem; text-align:center;">ترك هاتف</button>
+            </div>
+        </div>
+        <h1>مركز الوعي النفسي</h1>
+        <div class="grid">
+            <div class="card"><span class="knowledge-tag">سيكولوجية</span><h3>خداع نظام المكافأة</h3><p class="muted">يتم اختطاف مركز "الدوبامين" في الدماغ، مما يجعل العادات الضارة تبدو وكأنها ضرورة للبقاء. فهم هذا المسار الكيميائي هو مفتاح التحرر.</p></div>
+            <div class="card"><span class="knowledge-tag">حقائق التعافي</span><h3>الانتكاسة ليست فشلاً</h3><p class="muted">التعافي مسار متعرج. إذا تعثرت، فأنت لم تخسر تقدمك؛ بل اكتسبت "بيانات" جديدة عن محفزاتك. عُد للمسار فوراً وبذكاء أكبر.</p></div>
+            <div class="card"><span class="knowledge-tag">إدارة الذات</span><h3>قاعدة الـ 5 ثواني</h3><p class="muted">عندما تشعر بدافع للعمل وتتردد، عد تنازلياً 5-4-3-2-1 ثم تحرك فوراً. هذا يقطع دورة التفكير الزائد ويحفز الفعل المباشر.</p></div>
+            <div class="card"><span class="knowledge-tag">مواجهة الضغط</span><h3>موجة الرغبة الحادة</h3><p class="muted">الرغبة في الهروب تشبه الموجة؛ لها قمة ثم تنخفض. انتظر 20 دقيقة فقط دون استجابة، وستجد أن حدة الرغبة انكسرت تلقائياً.</p></div>
+            <div class="card"><span class="knowledge-tag">فلسفة الوعي</span><h3>دائرة التحكم</h3><p class="muted">الضغط النفسي يأتي من محاولة التحكم في "نتائج المستقبل". ركز فقط على "أفعال الحاضر". ما يمكنك التحكم فيه هو مجهودك الآن فقط.</p></div>
+            <div class="card"><span class="knowledge-tag">علاج القلق</span><h3>تفريغ الدماغ (Brain Dump)</h3><p class="muted">عندما تشعر بازدحام الأفكار، اكتب كل ما يقلقك على ورقة. نقل الأفكار من العقل للورق يقلل من نشاط منطقة الخوف في الدماغ.</p></div>
+            <div class="card"><span class="knowledge-tag">بيولوجيا</span><h3>التنظيف الليلي للدماغ</h3><p class="muted">أثناء النوم، يقوم الجهاز الغليمفاوي بغسل الدماغ من السموم. قلة النوم ترفع الكورتيزول وتجعلك أكثر عرضة للتوتر والانتكاس.</p></div>
+            <div class="card"><span class="knowledge-tag">دعم نفسي</span><h3>تحدث مع نفسك كصديق</h3><p class="muted">نحن نجلد ذاتنا بقسوة لا نفعلها مع أصدقائنا. التعاطف مع الذات يزيد من إفراز الأوكسيتوسين المهدئ. كن رحيماً برحلتك.</p></div>
+        </div>
+    </section>
+
+    <section id="tools" class="page">
+        <h1>أدوات المواجهة والتمكين</h1>
+        <div class="card" style="padding-left: 0; padding-right: 0;">
+            <span class="knowledge-tag" style="margin-right: 2.2rem;">تطبيقات عملية</span>
+            <h3 style="margin-right: 2.2rem; margin-bottom: 1rem;">فيديوهات التدريب الذاتي</h3>
+            <div class="video-grid" id="vg2" onscroll="requestTick('vg2', 'bar2')">
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/lFxI0O2JmNE" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">التركيز العميق</div><div class="v-meta">تقنية الـ 90 دقيقة</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/frN2YcB63NA" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">قوة العادات</div><div class="v-meta">كيف تغير حياتك بالتدريج</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/tVYYDu546kQ" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">وقف التسويف</div><div class="v-meta">استراتيجيات العمل الفوري</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/3VIL1L_ypMg" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">التنفس المهدئ</div><div class="v-meta">إسعاف أولي للقلق</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/8dLaGiJK1hA" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">كتابة اليوميات</div><div class="v-meta">التفريغ الوجداني</div></div>
+                </div>
+            </div>
+            <div class="scroll-indicator-container"><div class="scroll-progress-bar" id="bar2"></div></div>
+        </div>
+        
+        <div class="card" id="sim-container" style="text-align: center;">
+            <span class="knowledge-tag">محاكي المواقف الذكي</span>
+            <h2 id="sim-q">تشعر برغبة في الهروب عبر 'عادات قديمة'.. ماذا تفعل؟</h2>
+            <div id="sim-options">
+                <button class="choice-btn" id="sim-safe" onclick="runSim('safe')">أواجه الشعور وآخذ استراحة حقيقية.</button>
+                <button class="choice-btn" id="sim-risk" onclick="runSim('risk')">سأجرب الهروب لمرة واحدة فقط.</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="knowledge-tag">تفكيك الأفكار (CBT)</span>
+            <h3>محلل الأفكار الذكي</h3>
+            <input type="text" id="cbt-input" placeholder="اكتب فكرة سلبية تضغط عليك الآن...">
+            <button class="choice-btn" id="cbt-submit" style="width:auto; margin-top:10px;" onclick="processCBT()">ابدأ التحليل المنطقي (+20)</button>
+            <p id="cbt-res" style="margin-top:10px; font-size:0.95rem; color:var(--accent); font-weight: 500; min-height: 24px;"></p>
+        </div>
+
+        <div class="card">
+            <span class="knowledge-tag">أداة الحسم</span>
+            <h3 id="decision-title">ميزان الحسم: ألم الانضباط أم ألم الندم؟</h3>
+            <p id="decision-text" style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px;">كل خيار له ثمن، أيهما تختار دفعه الآن؟</p>
+            <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="choice-btn" id="tool-discipline" onclick="smartDecision('discipline')" style="text-align: center; border-color: var(--accent);">ألم الانضباط</button>
+                <button class="choice-btn" id="tool-regret" onclick="smartDecision('regret')" style="text-align: center; border-color: var(--danger);">ألم الندم</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="knowledge-tag">تنظيم الجهاز العصبي</span>
+            <h3>التنفس الموجه (4-4-4-4)</h3>
+            <button class="choice-btn" id="tool-breath" onclick="startBreathGuide()" style="text-align: center;">ابدأ جلسة تهدئة (+10)</button>
+        </div>
+
+        <div class="card">
+            <span class="knowledge-tag">المنظور البعيد</span>
+            <h3>كبسولة الزمن: رسالة مستقبلك</h3>
+            <textarea id="future-letter" placeholder="اكتب نصيحة من 'أنت الفخور بنفسه' بعد عام من الآن..." style="height: 100px;"></textarea>
+            <button class="choice-btn" id="tool-future" style="width:auto; margin-top:10px;" onclick="saveFutureLetter()">إيداع في كبسولة الوعي (+15)</button>
+        </div>
+        
+        <div class="card"><h3>لوحة المتصدرين</h3><div id="leaderboard-list"></div></div>
+    </section>
+
+    <section id="highschool" class="page">
+        <div class="community-header">
+            <h1>أكاديمية التمكين الدراسي</h1>
+            <p style="color: var(--text-secondary);">تحويل التحديات إلى رحلة بناء مهارات ووعي.</p>
+        </div>
+        <div class="card" style="padding-left: 0; padding-right: 0;">
+            <span class="knowledge-tag" style="margin-right: 2.2rem;">توجيه دراسي</span>
+            <h3 style="margin-right: 2.2rem; margin-bottom: 1rem;">خارطة طريق التفوق</h3>
+            <div class="video-grid" id="vg3" onscroll="requestTick('vg3', 'bar3')">
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/7kDwkyrMPpM" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">أسرار الـ 100%</div><div class="v-meta">خطة شاملة</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/9cSifwaHTXo" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">المذاكرة الذكية</div><div class="v-meta">تقنيات الحفظ السريع</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/S6PrOjCQ4SA" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">جدول التفوق</div><div class="v-meta">التنظيم الفعال</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/ra8Ar3CX8Mg" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">التعامل مع الامتحانات</div><div class="v-meta">هدوء الأعصاب</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/-0MjvedRgss" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">قصص نجاح</div><div class="v-meta">من الصفر إلى القمة</div></div>
+                </div>
+            </div>
+            <div class="scroll-indicator-container"><div class="scroll-progress-bar" id="bar3"></div></div>
+        </div>
+        <div class="card" style="border: 1.5px solid var(--accent); background: radial-gradient(circle at top right, var(--bg-card), var(--accent-glow));">
+            <span class="knowledge-tag">نصيحة وعي متجددة</span>
+            <div id="daily-big-data"><h3>اضغط للحصول على نصيحة دراسية ذكية</h3></div>
+            <button class="choice-btn" style="width: auto; padding: 0.6rem 1.2rem; font-size: 0.8rem; margin-top: 15px;" onclick="refreshSecondaryTip()">تغيير النصيحة الآن ↻</button>
+        </div>
+        <h2 style="margin: 2rem 0 1rem 0;">دستور الطالب الواعي (اضغط للعرض)</h2>
+        <div class="grid">
+            <div class="card" onclick="this.classList.toggle('tip-active')" style="cursor: pointer;">
+                <h4>💡 قاعدة الـ 20 دقيقة الأولى</h4>
+                <div class="tip-box">ابدأ يومك بأصعب مادة. الدماغ يكون في كامل طاقته الصباحية، مما يسهل تفكيك المفاهيم المعقدة.</div>
+            </div>
+            <div class="card" onclick="this.classList.toggle('tip-active')" style="cursor: pointer;">
+                <h4>🧠 الاسترجاع النشط</h4>
+                <div class="tip-box">بدلاً من إعادة القراءة، أغمض عينيك وحاول تسميع ما فهمته. هذا يقوي المسارات العصبية.</div>
+            </div>
+        </div>
+        <div class="grid" id="myths-grid" style="margin-top: 2rem;"></div>
+    </section>
+
+    <section id="community" class="page">
+        <div class="community-header"><h1>فضاء مَدار الآمن</h1><p><span id="online-count">142</span> عضو يتفاعل الآن</p></div>
+        <div class="card" style="padding-left: 0; padding-right: 0;">
+            <span class="knowledge-tag" style="margin-right: 2.2rem;">قصص ملهمة</span>
+            <h3 style="margin-right: 2.2rem; margin-bottom: 1rem;">دعم وتجارب حقيقية</h3>
+            <div class="video-grid" id="vg4" onscroll="requestTick('vg4', 'bar4')">
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/JLY3vKrNpNc" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">قصة بطل</div><div class="v-meta">العودة بعد السقوط</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/y-APcns0vfI" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">قوة المجتمع</div><div class="v-meta">كيف يدعمنا الآخرون</div></div>
+                </div>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/om1B-Ji3Gms" allowfullscreen></iframe>
+                    <div class="video-overlay"><div class="v-title">تغيير المسار</div><div class="v-meta">تجارب حقيقية</div></div>
+                </div>
+            </div>
+            <div class="scroll-indicator-container"><div class="scroll-progress-bar" id="bar4"></div></div>
+        </div>
+        <div id="chat-window"></div>
+        <div class="chat-input-container">
+            <input type="text" id="chat-input-field" placeholder="تحدث بخصوصية تامة..." onkeypress="if(event.key === 'Enter') handleSend()">
+            <button class="send-btn" onclick="handleSend()">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #0b0f1a;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+        </div>
+    </section>
+
+    <section id="profile" class="page">
+        <div class="profile-header">
+            <div class="avatar-circle">👤</div>
+            <h2 id="prof-name">هوية مجهولة</h2>
+            <p id="user-email-display" style="color: var(--text-secondary); font-size: 0.8rem;"></p>
+            <p style="color: var(--text-secondary); font-size: 0.8rem;">رتبة: <span id="user-rank" style="color: var(--accent);">مبادر جديد</span></p>
+        </div>
+        <div class="card" id="auth-card">
+            <span class="knowledge-tag">تأمين الحساب السحابي</span>
+            <input type="text" id="reg-name" placeholder="الاسم المستعار">
+            <input type="email" id="reg-email" placeholder="البريد الإلكتروني">
+            <input type="password" id="reg-pass" placeholder="كلمة السر">
+            <button class="choice-btn" onclick="handleAuth()">إنشاء / مزامنة الحساب</button>
+        </div>
+        <div class="grid">
+            <div class="card" style="text-align:center;">أيام الوعي<br><span id="days-val" style="font-size:2rem; color:var(--accent); font-weight:700">1</span></div>
+            <div class="card" style="text-align:center;">نقاط القوة<br><span id="points-val" style="font-size:2rem; color:var(--accent); font-weight:700">0</span></div>
+        </div>
+        <div class="card" style="margin-top:1.5rem;">
+            <span class="knowledge-tag">إنجازاتك المحققة</span>
+            <div class="badge-grid">
+                <div class="badge-item" id="badge-1"><span class="badge-icon">🌱</span><span class="badge-name">المبادر</span></div>
+                <div class="badge-item" id="badge-2"><span class="badge-icon">🔥</span><span class="badge-name">المثابر</span></div>
+                <div class="badge-item" id="badge-3"><span class="badge-icon">💎</span><span class="badge-name">الواعي</span></div>
+            </div>
+        </div>
+        <button onclick="resetAll()" style="color: var(--danger); background: none; border: none; cursor: pointer; text-decoration: underline; display: block; margin: 20px auto;">إعادة ضبط الهوية</button>
+    </section>
+
+    <section id="about" class="page">
+        <h1>من نحن</h1>
+        <div class="card">
+            <span class="knowledge-tag">رؤية مَدار</span>
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">مَدار هي منصة رائدة تهدف إلى تمكين الأفراد من تجاوز التحديات الأكاديمية والنفسية بوعي واتزان.</p>
+            <div class="strategy-card" style="background: var(--bg-main); border-right: 4px solid var(--accent); padding: 15px; border-radius: 12px; margin-bottom: 15px;">
+                <h4 style="color: var(--accent);">أهدافنا:</h4>
+                <ul style="padding-right: 20px; list-style-type: circle; color: var(--text-secondary);">
+                    <li>دعم طلاب مَدار الأكاديمية لعبور المرحلة بأقل قدر من الضغوط النفسية.</li>
+                    <li>تقديم أدوات سيكولوجية حديثة للتعافي وإعادة الصياغة.</li>
+                    <li>بناء بيئة آمنة تعزز الانضباط الذاتي والهدوء الذهني.</li>
+                </ul>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); text-align: center;">
+                تم تطوير هذه المنصة بواسطة<br>
+                <strong style="color: var(--accent); font-size: 1.1rem;">البشمهندس نور الهادي وفريق العمل</strong>
+            </p>
+        </div>
+    </section>
+</div>
+
+<div class="nav-bar">
+    <button class="nav-item active" id="nav-awareness" onclick="showPage('awareness')">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 21a9 9 0 100-18 9 9 0 000 18z"></path><path d="M12 8v4l3 3"></path></svg>
+        <span>الوعي</span>
+    </button>
+    <button class="nav-item" id="nav-tools" onclick="showPage('tools')">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+        <span>الأدوات</span>
+    </button>
+    <button class="nav-item" id="nav-highschool" onclick="showPage('highschool')">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+        <span>مَدار</span>
+    </button>
+    <button class="nav-item" id="nav-community" onclick="showPage('community')">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87"></path><path d="M16 3.13a4 4 0 010 7.75"></path></svg>
+        <span>المجتمع</span>
+    </button>
+    <button class="nav-item" id="nav-profile" onclick="showPage('profile')">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+        <span>ملفي</span>
+    </button>
+</div>
+
+<script>
+    const DB_NAME = 'midar_v2026_pro';
+    const bigDataMyths = [
+        {m: "النجاح هو نهاية الطريق.", t: "الحقيقة: هو مجرد بداية لمرحلة استكشاف مهاراتك."},
+        {m: "يجب المذاكرة 16 ساعة يومياً.", t: "الحقيقة: العقل لا يركز بعمق لأكثر من 4-6 ساعات."},
+        {m: "المسار الأكاديمي التقليدي يضمن النجاح.", t: "الحقيقة: المهارات الشخصية هي المحرك الفعلي للنجاح."},
+        {m: "التوتر يجعلني أنجز أسرع.", t: "الحقيقة: التوتر يعطل مراكز التفكير المنطقي."},
+        {m: "لا يجب النوم ليلة الاختبار.", t: "الحقيقة: النوم هو المسؤول عن تثبيت المعلومات."}
+    ];
+    const challenges = ["تأمل لـ 5 دقائق.", "كتابة نجاحات اليوم.", "ترك الهاتف قبل النوم.", "شرب لترين ماء."];
+
+    const CBT_FEEDBACK = [
+        "تحليل مَدار: هذه الفكرة ناتجة عن قلق لحظي، حاول تجزئة المهمة.",
+        "رؤية مَدار: العقل يبالغ في تقدير المخاطر أحياناً، تنفس بعمق وراجع الحقائق.",
+        "رد مَدار: هل هذه الفكرة مبنية على دليل واقعي أم مجرد شعور مؤقت؟",
+        "تحليل مَدار: تذكر أن 'الكمال' عدو 'الإنجاز'. ابدأ الآن بجودة بسيطة."
+    ];
+
+    let App = {
+        user: JSON.parse(localStorage.getItem(DB_NAME)) || { id: "مبادر_" + Math.floor(1000 + Math.random() * 9000), email: "", points: 0, days: 1, lastDate: new Date().toLocaleDateString(), completedTasks: [] },
+        theme: localStorage.getItem('theme') || 'dark',
+        chatMsgs: [{id:"مَدار", text:"أهلاً بك. هويتك هنا مجهولة وآمنة تماماً.", type:"other"}],
+        ticking: false,
+        init() {
+            document.documentElement.setAttribute('data-theme', this.theme);
+            this.checkDayReset(); this.updateUI(); this.renderMythsGrid(); refreshSecondaryTip(); displayChallenge(); this.applyTaskStates();
+            if(this.user.email) document.getElementById('auth-card').style.display = 'none';
+            document.querySelectorAll('.video-grid').forEach((grid, index) => {
+                this.updateBar(grid, 'bar' + (index + 1));
+            });
+        },
+        save() { localStorage.setItem(DB_NAME, JSON.stringify(this.user)); },
+        checkDayReset() { const today = new Date().toLocaleDateString(); if(this.user.lastDate !== today) { this.user.lastDate = today; this.user.completedTasks = []; this.user.days += 1; this.save(); } },
+        updateUI() {
+            const badge = document.getElementById('user-badge');
+            if(badge) badge.innerText = this.user.id + " | " + this.user.points + " ن";
+            document.getElementById('prof-name').innerText = this.user.id;
+            document.getElementById('days-val').innerText = this.user.days;
+            document.getElementById('points-val').innerText = this.user.points;
+            this.checkBadges(); this.renderLeaderboard();
+        },
+        checkBadges() {
+            const p = this.user.points;
+            if(p >= 0) document.getElementById('badge-1').classList.add('unlocked');
+            if(p >= 100) document.getElementById('badge-2').classList.add('unlocked');
+            if(p >= 500) document.getElementById('badge-3').classList.add('unlocked');
+        },
+        renderMythsGrid() {
+            const container = document.getElementById('myths-grid');
+            if(container) container.innerHTML = bigDataMyths.map(m => `<div class="card myth-card" onclick="this.classList.toggle('revealed')"><span class="knowledge-tag">خرافة</span><p><b>"${m.m}"</b></p><div class="truth-reveal"><p>${m.t}</p></div></div>`).join('');
+        },
+        applyTaskStates() { this.user.completedTasks.forEach(id => { const el = document.getElementById(id); if(el) { el.disabled = true; el.innerText = "تم الإنجاز ✓"; } }); },
+        renderLeaderboard() {
+            const lb = [{id:this.user.id, p:this.user.points}, {id:"مبادر_ياسين", p:1540}].sort((a,b)=>b.p-a.p);
+            const list = document.getElementById('leaderboard-list');
+            if(list) list.innerHTML = lb.map((u,i)=>`<div style="display:flex; justify-content:space-between; padding:12px; background:var(--glass); margin:8px 0; border-radius:12px;"><span>${i+1}. ${u.id}</span><b>${u.p} ن</b></div>`).join('');
+        },
+        updateBar(element, barId) {
+            const bar = document.getElementById(barId);
+            if (bar) {
+                const scrollTotal = element.scrollWidth - element.clientWidth;
+                const scrollLeft = Math.abs(element.scrollLeft);
+                const progress = scrollTotal > 0 ? (scrollLeft / scrollTotal) * 100 : 0;
+                bar.style.width = progress + "%";
+            }
+        }
+    };
+
+    function requestTick(gridId, barId) {
+        if (!App.ticking) {
+            requestAnimationFrame(() => {
+                App.updateBar(document.getElementById(gridId), barId);
+                App.ticking = false;
+            });
+            App.ticking = true;
+        }
+    }
+
+    function showPage(id) {
+        window.scrollTo(0, 0); 
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById('nav-'+id).classList.add('active');
+        if(id === 'community') renderChat();
+    }
+
+    function toggleTheme() {
+        App.theme = App.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', App.theme);
+        localStorage.setItem('theme', App.theme);
+    }
+
+    function handleAuth() {
+        const name = document.getElementById('reg-name').value.trim();
+        if(!name) return alert("يرجى إدخال الاسم");
+        App.user.id = name; App.save(); App.updateUI();
+        document.getElementById('auth-card').style.display = 'none';
+        alert("تم الحفظ!");
+    }
+
+    function completeHabit(id, p) { if(App.user.completedTasks.includes(id)) return; App.user.points += p; App.user.completedTasks.push(id); App.save(); App.updateUI(); const btn = document.getElementById(id); if(btn) { btn.disabled = true; btn.innerText = "تم الإنجاز ✓"; } }
+    function handleSend() { const inp = document.getElementById('chat-input-field'); if(!inp.value.trim()) return; App.chatMsgs.push({id: App.user.id, text: inp.value, type: "mine"}); inp.value = ""; renderChat(); }
+    function renderChat() { const win = document.getElementById('chat-window'); win.innerHTML = App.chatMsgs.map(m => `<div class="bubble ${m.type}">${m.text}</div>`).join(''); win.scrollTop = win.scrollHeight; }
+    function displayChallenge() { document.getElementById('daily-commitment').innerText = challenges[new Date().getDate() % challenges.length]; }
+    function refreshSecondaryTip() { const target = document.getElementById('daily-big-data'); target.innerHTML = `<h3 style="color:var(--accent)">نصيحة ذكية</h3><p>${bigDataMyths[Math.floor(Math.random()*bigDataMyths.length)].t}</p>`; }
+    
+    function processCBT() { 
+        const inp = document.getElementById('cbt-input');
+        if(!inp.value.trim()) return;
+        const feedback = CBT_FEEDBACK[Math.floor(Math.random() * CBT_FEEDBACK.length)];
+        document.getElementById('cbt-res').innerText = feedback; 
+        completeHabit('cbt-submit', 20); 
+    }
+
+    function runSim(choice) { 
+        const container = document.getElementById('sim-container');
+        if(choice === 'safe') {
+            container.innerHTML = `<span class="knowledge-tag">تجاوز ناجح</span><h2 style="color:var(--accent)">وعي متيقظ!</h2><p>اخترت مواجهة الشعور بدلاً من تخديره. هذه هي قوة مَدار الحقيقية. +25 نقطة</p>`;
+            App.user.points += 25; App.save(); App.updateUI();
+        } else {
+            container.innerHTML = `<span class="knowledge-tag" style="color:var(--danger)">فخ الدوبامين</span><h2 style="color:var(--danger)">تراجع مؤقت</h2><p>العقل يميل للمتعة السريعة دائماً. التعافي يبدأ بالاعتراف بالخطأ والمحاولة مجدداً.</p><button class="choice-btn" onclick="location.reload()">محاولة ثانية بوعي جديد</button>`;
+        }
+    }
+
+    function smartDecision(type) {
+        const title = document.getElementById('decision-title');
+        const text = document.getElementById('decision-text');
+        if(type === 'discipline') {
+            title.innerText = "خيار الأقوياء ✓";
+            text.innerText = "ألم الانضباط يزول بنهاية اليوم ويتحول لفخر، بينما ألم الندم يستمر طويلاً. +5 نقاط.";
+            completeHabit('tool-discipline', 5);
+        } else {
+            title.innerText = "توقف وفكر!";
+            text.innerText = "الندم حمل ثقيل على الوعي. مَدار تدعمك لتبديل هذا الخيار الآن.";
+        }
+    }
+
+    function startBreathGuide() {
+        const btn = document.getElementById('tool-breath');
+        let count = 4;
+        btn.disabled = true;
+        const timer = setInterval(() => {
+            btn.innerText = `شهيق... ${count}`;
+            count--;
+            if(count < 0) {
+                clearInterval(timer);
+                btn.innerText = "جلسة مكتملة ✓";
+                completeHabit('tool-breath', 10);
+            }
+        }, 1000);
+    }
+
+    function saveFutureLetter() {
+        const area = document.getElementById('future-letter');
+        if(!area.value.trim()) return;
+        area.disabled = true;
+        area.style.opacity = "0.5";
+        completeHabit('tool-future', 15);
+        alert("تم إيداع رسالتك في كبسولة الوعي بنجاح.");
+    }
+
+    function resetAll() { if(confirm("حذف البيانات؟")) { localStorage.clear(); location.reload(); } }
+    document.addEventListener('DOMContentLoaded', () => App.init());
+</script>
+</body>
+</html>
