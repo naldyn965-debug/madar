@@ -556,15 +556,73 @@
         .strength-text { color:var(--text-secondary); min-width:70px; text-align:left; }
         .validation-feedback { font-size:0.7rem; margin-top:5px; color:var(--danger); display:flex; flex-wrap:wrap; gap:10px; }
 
-        /* ========== تمرين التنفس ========== */
-        .breath-circle {
-            width:120px; height:120px; border-radius:50%; background:radial-gradient(circle at 30% 30%, var(--accent-glow), var(--accent));
-            margin:20px auto; display:flex; align-items:center; justify-content:center; box-shadow:0 0 40px var(--accent-glow);
-            transition:transform 4s ease-in-out; color:white; font-weight:700; font-size:1.5rem; transform:scale(0.8);
+        /* ========== تمرين التنفس المحسن ========== */
+        .breath-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
         }
-        .breath-circle.inhale { transform:scale(1.5); }
-        .breath-circle.exhale { transform:scale(0.8); }
-        .breath-circle.hold { transform:scale(1); }
+        .breath-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(45,212,191,0.9), #0d9488);
+            margin: 10px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 50px var(--accent-glow), 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 4s ease-in-out, background 1s ease, box-shadow 0.5s;
+            color: white;
+            font-weight: 800;
+            font-size: 2rem;
+            transform: scale(0.8);
+            border: 3px solid rgba(255,255,255,0.2);
+            flex-direction: column;
+            line-height: 1.3;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .breath-circle .phase-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        .breath-circle.inhale {
+            transform: scale(1.5);
+            background: radial-gradient(circle at 30% 30%, #2dd4bf, #0891b2);
+            box-shadow: 0 0 70px #2dd4bf;
+        }
+        .breath-circle.exhale {
+            transform: scale(0.8);
+            background: radial-gradient(circle at 30% 30%, #0d9488, #065f46);
+            box-shadow: 0 0 40px #0d9488;
+        }
+        .breath-circle.hold {
+            transform: scale(1);
+            background: radial-gradient(circle at 30% 30%, #fbbf24, #b45309);
+            box-shadow: 0 0 60px #fbbf24;
+        }
+        .breath-instruction {
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin: 10px 0;
+            font-weight: 600;
+            background: var(--glass);
+            padding: 8px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+        #breath-timer {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            background: var(--bg-card);
+            padding: 5px 20px;
+            border-radius: 60px;
+            border: 1px solid var(--accent);
+            margin: 0 10px;
+        }
 
         /* ========== علامات التبويب للمصادقة ========== */
         .auth-tabs { display:flex; justify-content:center; gap:10px; margin-bottom:25px; border-bottom:1px solid var(--glass); padding-bottom:10px; }
@@ -609,7 +667,7 @@
         #logout-btn { display:none; }
         .user-only { display:none; }
 
-        /* ========== الملف الشخصي ========== */
+        /* ========== الملف الشخصي (مع إعادة النشاط اليومي) ========== */
         .premium-stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:15px; margin-bottom:20px; }
         .glass-card { background:var(--bg-card); backdrop-filter:blur(16px); border:1px solid var(--glass); border-radius:24px; padding:20px 15px; display:flex; align-items:center; gap:12px; transition:0.3s; box-shadow:var(--shadow-premium); }
         .glass-card:hover { transform:translateY(-4px); border-color:var(--accent); }
@@ -631,6 +689,7 @@
         .mini-habit { flex:1 0 auto; min-width:80px; background:var(--glass); border:1px solid var(--glass); border-radius:50px; padding:10px; color:var(--text-secondary); font-size:0.9rem; cursor:pointer; transition:0.3s; display:flex; align-items:center; justify-content:center; gap:5px; }
         .mini-habit:not(:disabled):hover { background:var(--accent-glow); color:var(--accent); border-color:var(--accent); transform:translateY(-2px); }
         .mini-habit:disabled { opacity:0.3; cursor:default; }
+        .mini-habit.completed { background:var(--accent-glow); color:var(--accent); border-color:var(--accent); }
 
         /* ========== النشاط الأسبوعي ========== */
         .week-stats-modern {
@@ -776,7 +835,7 @@
             margin-right: 5px;
         }
 
-        /* ========== لوحة المتصدرين المتناسقة ========== */
+        /* ========== لوحة المتصدرين (بدون كلمات الأول والثاني...) ========== */
         .leaderboard-container {
             background: var(--bg-card);
             backdrop-filter: blur(16px);
@@ -788,56 +847,88 @@
         .leaderboard-item {
             display: flex;
             align-items: center;
-            padding: 0.8rem 1.2rem;
+            padding: 0.8rem 1rem;
             margin: 0.5rem 0;
             border-radius: 18px;
             background: var(--glass);
             transition: all 0.3s ease;
             border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+            gap: 8px;
         }
         .leaderboard-item:hover {
-            transform: translateX(-5px);
+            transform: translateX(-5px) scale(1.02);
             border-color: var(--accent);
             background: var(--bg-card);
-            box-shadow: 0 5px 15px rgba(45,212,191,0.2);
+            box-shadow: 0 5px 20px rgba(45,212,191,0.3);
+        }
+        /* ألوان وتأثيرات خاصة بالمراكز */
+        .leaderboard-item.rank-1 {
+            background: linear-gradient(145deg, rgba(255,215,0,0.2), rgba(255,215,0,0.05));
+            border-color: var(--gold);
+            box-shadow: 0 0 25px rgba(255,215,0,0.3);
+        }
+        .leaderboard-item.rank-2 {
+            background: linear-gradient(145deg, rgba(192,192,192,0.2), rgba(192,192,192,0.05));
+            border-color: var(--silver);
+            box-shadow: 0 0 20px rgba(192,192,192,0.3);
+        }
+        .leaderboard-item.rank-3 {
+            background: linear-gradient(145deg, rgba(205,127,50,0.2), rgba(205,127,50,0.05));
+            border-color: var(--bronze);
+            box-shadow: 0 0 20px rgba(205,127,50,0.3);
+        }
+        .leaderboard-item.rank-4 {
+            background: linear-gradient(145deg, rgba(184,115,51,0.2), rgba(184,115,51,0.05));
+            border-color: var(--copper);
+            box-shadow: 0 0 20px rgba(184,115,51,0.3);
         }
         .leaderboard-rank {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            margin-left: 15px;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin-left: 10px;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             flex-shrink: 0;
+            position: relative;
+            z-index: 2;
         }
         .leaderboard-rank-1 {
             background: linear-gradient(145deg, var(--gold), #FDB931);
             color: #1a1a1a;
             border: 2px solid #fff3b0;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 0 20px var(--gold);
         }
         .leaderboard-rank-2 {
             background: linear-gradient(145deg, var(--silver), #E0E0E0);
             color: #2d2d2d;
             border: 2px solid #f0f0f0;
+            box-shadow: 0 0 15px var(--silver);
         }
         .leaderboard-rank-3 {
             background: linear-gradient(145deg, var(--bronze), #B08D57);
             color: #3e2e1f;
             border: 2px solid #e0c9a6;
+            box-shadow: 0 0 15px var(--bronze);
         }
         .leaderboard-rank-4 {
             background: linear-gradient(145deg, var(--copper), #A0522D);
             color: #f5e6d3;
             border: 2px solid #dba578;
+            box-shadow: 0 0 15px var(--copper);
         }
         .leaderboard-rank-regular {
             background: var(--accent-glow);
             color: var(--accent);
             border: 1px solid var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
         }
         .leaderboard-info {
             flex: 1;
@@ -845,6 +936,8 @@
             justify-content: space-between;
             align-items: center;
             min-width: 0;
+            z-index: 2;
+            gap: 8px;
         }
         .leaderboard-name {
             font-weight: 700;
@@ -855,46 +948,41 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-        .leaderboard-badge {
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 40px;
-            background: var(--accent-glow);
-            color: var(--accent);
-            white-space: nowrap;
+            max-width: 60%;
         }
         .leaderboard-points {
             font-weight: 800;
             font-size: 1rem;
             background: var(--accent-glow);
-            padding: 0.2rem 0.8rem;
+            padding: 0.3rem 1rem;
             border-radius: 40px;
             color: var(--accent);
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             white-space: nowrap;
-            margin-left: 8px;
+            margin-left: 5px;
+            border: 1px solid var(--accent);
+            flex-shrink: 0;
         }
         .leaderboard-points i {
             font-size: 0.8rem;
             color: var(--warning);
         }
         .leaderboard-crown {
-            font-size: 1.5rem;
-            margin-left: 8px;
-            filter: drop-shadow(0 0 5px currentColor);
+            font-size: 1.8rem;
+            margin-left: 5px;
+            filter: drop-shadow(0 0 8px currentColor);
             flex-shrink: 0;
+            z-index: 2;
         }
         @media (max-width: 500px) {
-            .leaderboard-name { font-size: 0.9rem; }
-            .leaderboard-points { font-size: 0.9rem; padding: 0.2rem 0.5rem; }
-            .leaderboard-rank { width: 35px; height: 35px; font-size: 1rem; margin-left: 10px; }
+            .leaderboard-name { font-size: 0.9rem; max-width: 50%; }
+            .leaderboard-points { font-size: 0.9rem; padding: 0.2rem 0.7rem; }
+            .leaderboard-rank { width: 40px; height: 40px; font-size: 1.2rem; margin-left: 8px; }
         }
 
         /* ========== تحسين محاذاة أزرار العادات (المطلوب) ========== */
-        /* استهداف أزرار العادات في صفحة الوعي (البطاقة الثالثة) */
         #awareness .card:nth-of-type(3) .grid {
             align-items: stretch;
         }
@@ -904,28 +992,13 @@
             justify-content: center;
             align-items: center;
             height: 100%;
-            margin: 0; /* إلغاء الهامش لأن grid يدير المسافات */
+            margin: 0;
             text-align: center;
             padding: 1rem 0.5rem;
         }
         #awareness .card:nth-of-type(3) .choice-btn i {
             margin-bottom: 0.5rem;
             font-size: 1.5rem;
-        }
-
-        /* تحسين محاذاة أزرار العادات المصغرة في الملف الشخصي */
-        .mini-habit {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            height: 100%;
-            padding: 0.8rem 0.3rem;
-        }
-        .mini-habit i {
-            font-size: 1.2rem;
-            margin-bottom: 0.3rem;
         }
     </style>
 </head>
@@ -1055,12 +1128,17 @@
         </div>
 
         <div class="card">
-            <span class="knowledge-tag"><i class="fas fa-lungs"></i> التنفس الموجه بالتأمل البصري</span>
-            <h3>4-4-4-4 (شهيق - احتباس - زفير - احتباس)</h3>
-            <div id="breath-circle" class="breath-circle">🌬️</div>
-            <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-                <button class="choice-btn" id="tool-breath" onclick="startBreathGuide()" style="width: auto; padding: 0.8rem 2rem;"><i class="fas fa-play"></i> ابدأ</button>
-                <span id="breath-timer" style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">4</span>
+            <span class="knowledge-tag"><i class="fas fa-lungs"></i> التنفس الموجه (جلسة كاملة)</span>
+            <h3>4-4-4-4 (شهيق - احتباس - زفير - احتباس) × 4 دورات</h3>
+            <div class="breath-container">
+                <div id="breath-circle" class="breath-circle">
+                    <span id="breath-phase" class="phase-text">استعد</span>
+                </div>
+                <div class="breath-instruction" id="breath-instruction">اضغط ابدأ</div>
+                <div style="display: flex; gap: 10px; justify-content: center; align-items: center; margin-top: 15px;">
+                    <button class="choice-btn" id="tool-breath" onclick="startBreathGuide()" style="width: auto; padding: 0.8rem 2rem;"><i class="fas fa-play"></i> ابدأ</button>
+                    <span id="breath-timer">4</span>
+                </div>
             </div>
         </div>
 
@@ -1217,7 +1295,7 @@
         </div>
     </section>
 
-    <!-- صفحة الملف الشخصي (بدون صورة) -->
+    <!-- صفحة الملف الشخصي (مع إعادة النشاط اليومي) -->
     <section id="profile" class="page">
         <div class="profile-header" style="text-align: center; margin-bottom: 2rem;">
             <div style="font-size: 5rem; color: var(--accent);">
@@ -1291,6 +1369,7 @@
                 </div>
             </div>
 
+            <!-- قسم تقدم اليوم (أعيد) -->
             <div class="premium-card">
                 <div class="card-header">
                     <span class="knowledge-tag"><i class="fas fa-sun"></i> تقدم اليوم</span>
@@ -1312,6 +1391,7 @@
                         <div class="progress-bar-bg"><div class="progress-bar-fill" id="daily-habits-bar" style="width:0%"></div></div>
                     </div>
                 </div>
+                <!-- أزرار العادات المصغرة اختيارية (يمكن إبقاؤها أو حذفها، لكننا نبقيها لتكامل الوظيفة) -->
                 <div class="mini-habits">
                     <button class="mini-habit" id="h-breath-mini" onclick="completeHabit('h-breath', 5)" disabled><i class="fas fa-lungs"></i> تنفس</button>
                     <button class="mini-habit" id="h-water-mini" onclick="completeHabit('h-water', 5)" disabled><i class="fas fa-droplet"></i> ماء</button>
@@ -1633,10 +1713,12 @@
             if (miniBtn) {
                 if (App.user.completedTasks.includes(id)) {
                     miniBtn.disabled = true;
-                    miniBtn.style.opacity = '0.5';
+                    miniBtn.classList.add('completed');
+                    miniBtn.innerHTML = '<i class="fas fa-check-circle"></i> تم ✓';
                 } else {
                     miniBtn.disabled = false;
-                    miniBtn.style.opacity = '1';
+                    miniBtn.classList.remove('completed');
+                    miniBtn.innerHTML = `<i class="fas fa-${id === 'h-breath' ? 'lungs' : id === 'h-water' ? 'droplet' : id === 'h-no-phone' ? 'mobile-slash' : 'book'}"></i> ${id === 'h-breath' ? 'تنفس' : id === 'h-water' ? 'ماء' : id === 'h-no-phone' ? 'هاتف' : 'قراءة'}`;
                 }
             }
         });
@@ -2066,31 +2148,31 @@
                 users.forEach((u, index) => {
                     const rank = index + 1;
                     let rankClass = 'leaderboard-rank-regular';
+                    let itemClass = '';
                     let icon = '';
-                    let badgeText = '';
                     if (rank === 1) {
                         rankClass = 'leaderboard-rank-1';
+                        itemClass = 'rank-1';
                         icon = '<i class="fas fa-crown leaderboard-crown" style="color: var(--gold);"></i>';
-                        badgeText = '<span class="leaderboard-badge">البطل</span>';
                     } else if (rank === 2) {
                         rankClass = 'leaderboard-rank-2';
+                        itemClass = 'rank-2';
                         icon = '<i class="fas fa-medal leaderboard-crown" style="color: var(--silver);"></i>';
-                        badgeText = '<span class="leaderboard-badge">الوصيف</span>';
                     } else if (rank === 3) {
                         rankClass = 'leaderboard-rank-3';
+                        itemClass = 'rank-3';
                         icon = '<i class="fas fa-medal leaderboard-crown" style="color: var(--bronze);"></i>';
-                        badgeText = '<span class="leaderboard-badge">الثالث</span>';
                     } else if (rank === 4) {
                         rankClass = 'leaderboard-rank-4';
+                        itemClass = 'rank-4';
                         icon = '<i class="fas fa-ribbon leaderboard-crown" style="color: var(--copper);"></i>';
-                        badgeText = '<span class="leaderboard-badge">الرابع</span>';
                     }
 
                     html += `
-                        <div class="leaderboard-item">
+                        <div class="leaderboard-item ${itemClass}">
                             <div class="leaderboard-rank ${rankClass}">${rank}</div>
                             <div class="leaderboard-info">
-                                <span class="leaderboard-name">${u.id} ${badgeText}</span>
+                                <span class="leaderboard-name">${u.id}</span>
                                 <span class="leaderboard-points"><i class="fas fa-star"></i> ${u.points}</span>
                             </div>
                             ${icon}
@@ -2104,7 +2186,7 @@
             });
         },
 
-        // ========== دوال الدردشة المحسنة ==========
+        // ========== دوال الدردشة المحسنة (تم إصلاح مشاكل العرض والإرسال) ==========
         initChatPremium() {
             if (this.chatInitialized) return;
             this.chatInitialized = true;
@@ -2112,18 +2194,19 @@
             const chatWindow = document.getElementById('chat-window');
             if (chatWindow) chatWindow.innerHTML = '<div class="chat-loading">جاري تحميل المحادثة...</div>';
 
+            // تحميل آخر 50 رسالة بترتيب تصاعدي (الأقدم أولاً)
             if (!this.loadingMessages) {
                 this.loadingMessages = true;
                 db.collection('chats')
-                    .orderBy('timestamp', 'desc')
+                    .orderBy('timestamp', 'asc') // ترتيب تصاعدي مباشرة
                     .limit(50)
                     .get()
                     .then(snapshot => {
-                        const msgs = snapshot.docs.reverse(); // نعكس الترتيب ليصبح تصاعدياً
-                        msgs.forEach(doc => {
+                        chatWindow.innerHTML = ''; // إزالة رسالة التحميل
+                        snapshot.docs.forEach(doc => {
                             const msg = doc.data();
                             msg.id = doc.id;
-                            this.displayMessage(msg, true);
+                            this.displayMessage(msg);
                         });
                         this.scrollChatToBottom();
                         this.loadingMessages = false;
@@ -2135,6 +2218,7 @@
                     });
             }
 
+            // الاستماع للرسائل الجديدة (ترتيب تصاعدي)
             if (this.chatUnsubscribe) this.chatUnsubscribe();
             this.chatUnsubscribe = db.collection('chats')
                 .orderBy('timestamp', 'asc')
@@ -2143,8 +2227,11 @@
                         if (change.type === 'added') {
                             const msg = change.doc.data();
                             msg.id = change.doc.id;
+                            // تجنب إضافة الرسائل المكررة
                             if (!document.getElementById(`msg-${msg.id}`)) {
                                 this.displayMessage(msg);
+                                // تمرير للأسفل إذا كانت الرسالة جديدة
+                                this.scrollChatToBottomIfNeeded();
                             }
                         } else if (change.type === 'modified') {
                             const msg = change.doc.data();
@@ -2152,12 +2239,12 @@
                             this.updateMessage(msg);
                         }
                     });
-                    this.scrollChatToBottomIfNeeded();
                 }, err => {
                     console.error(err);
                     showToast("تعذر الاستماع للرسائل الجديدة", 'error');
                 });
 
+            // مراقبة حالة الكتابة
             if (this.typingUnsubscribe) this.typingUnsubscribe();
             this.typingUnsubscribe = db.collection('typing').doc('status').onSnapshot((doc) => {
                 const indicator = document.getElementById('chat-typing-indicator');
@@ -2177,6 +2264,7 @@
                 }
             });
 
+            // زر التمرير للأسفل
             const chatWindowScroll = document.getElementById('chat-window');
             chatWindowScroll.addEventListener('scroll', () => {
                 const isAtBottom = chatWindowScroll.scrollHeight - chatWindowScroll.scrollTop <= chatWindowScroll.clientHeight + 50;
@@ -2186,18 +2274,12 @@
                     else scrollBtn.classList.add('show');
                 }
             });
-
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.message-actions')) {
-                    document.querySelectorAll('.message-actions.show-actions').forEach(el => el.classList.remove('show-actions'));
-                }
-            });
         },
 
-        displayMessage(msg, prepend = false) {
+        displayMessage(msg) {
             const chatWindow = document.getElementById('chat-window');
             if (!chatWindow) return;
-            if (document.getElementById(`msg-${msg.id}`)) return;
+            if (document.getElementById(`msg-${msg.id}`)) return; // تجنب التكرار
 
             const isMine = auth.currentUser && msg.userId === auth.currentUser.uid;
             const wrapper = document.createElement('div');
@@ -2207,6 +2289,7 @@
             const bubble = document.createElement('div');
             bubble.className = 'chat-bubble';
 
+            // اسم المرسل
             const sender = document.createElement('div');
             sender.className = 'chat-sender-name';
             if (isMine) {
@@ -2217,6 +2300,7 @@
             }
             bubble.appendChild(sender);
 
+            // الرد على رسالة
             if (msg.replyTo) {
                 const replyDiv = document.createElement('div');
                 replyDiv.className = 'reply-context';
@@ -2224,6 +2308,7 @@
                 bubble.appendChild(replyDiv);
             }
 
+            // نص الرسالة
             if (msg.text) {
                 const textDiv = document.createElement('div');
                 textDiv.className = 'chat-message-text';
@@ -2231,6 +2316,7 @@
                 bubble.appendChild(textDiv);
             }
 
+            // المرفقات
             if (msg.mediaUrl) {
                 const media = document.createElement('img');
                 media.className = 'chat-message-media';
@@ -2240,6 +2326,7 @@
                 bubble.appendChild(media);
             }
 
+            // تذييل الرسالة (الوقت والحالة)
             const footer = document.createElement('div');
             footer.className = 'chat-message-footer';
             const time = document.createElement('span');
@@ -2258,6 +2345,7 @@
             }
             bubble.appendChild(footer);
 
+            // التفاعلات
             if (msg.reactions && Object.keys(msg.reactions).length > 0) {
                 const reactionsDiv = document.createElement('div');
                 reactionsDiv.className = 'chat-reactions';
@@ -2273,14 +2361,11 @@
 
             wrapper.appendChild(bubble);
             
+            // إزالة رسالة التحميل إذا كانت موجودة
             const loading = chatWindow.querySelector('.chat-loading');
             if (loading) loading.remove();
 
-            if (prepend && chatWindow.children.length > 0) {
-                chatWindow.insertBefore(wrapper, chatWindow.firstChild);
-            } else {
-                chatWindow.appendChild(wrapper);
-            }
+            chatWindow.appendChild(wrapper);
         },
 
         updateMessage(msg) {
@@ -2315,7 +2400,9 @@
                     sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
                     return;
                 }
+                // إخفاء معاينة المرفق
                 document.getElementById('attachment-preview-area').style.display = 'none';
+                document.getElementById('attachment-preview-area').innerHTML = '';
                 selectedFile = null;
             }
 
@@ -2335,7 +2422,7 @@
                 await db.collection('chats').add(message);
                 input.value = '';
                 currentReplyTo = null;
-                this.scrollChatToBottom();
+                // التمرير للأسفل سيتم تلقائياً عند إضافة الرسالة عبر onSnapshot
             } catch (err) {
                 console.error(err);
                 showToast("فشل إرسال الرسالة", 'error');
@@ -2344,8 +2431,6 @@
                 sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
             }
         },
-
-        // تم إزالة دالة deleteMessage بالكامل
 
         async reactToMessage(messageId, emoji) {
             const user = auth.currentUser;
@@ -2426,6 +2511,7 @@
             remove.onclick = () => {
                 selectedFile = null;
                 previewArea.style.display = 'none';
+                previewArea.innerHTML = '';
                 document.getElementById('file-input').value = '';
             };
             div.appendChild(remove);
@@ -2634,7 +2720,8 @@
         const miniBtn = document.getElementById(id + '-mini');
         if (miniBtn) {
             miniBtn.disabled = true;
-            miniBtn.style.opacity = '0.5';
+            miniBtn.classList.add('completed');
+            miniBtn.innerHTML = '<i class="fas fa-check-circle"></i> تم ✓';
         }
         showToast(`+${p} نقطة! استمر 🎯`, 'success', 'أحسنت!');
         updateProfilePage();
@@ -2773,9 +2860,17 @@
         
         const circle = document.getElementById('breath-circle');
         const timerEl = document.getElementById('breath-timer');
-        let phase = 0;
-        let count = 4;
+        const phaseEl = document.getElementById('breath-phase');
+        const instructionEl = document.getElementById('breath-instruction');
         
+        let phase = 0; // 0: شهيق, 1: احتباس, 2: زفير, 3: احتباس
+        let count = 4;
+        let cycle = 0; // عداد الدورات (4 دورات كاملة)
+        const totalCycles = 4; // 4 دورات لجلسة كاملة
+        
+        // بداية
+        phaseEl.innerText = 'شهيق';
+        instructionEl.innerText = 'خذ شهيقاً عميقاً';
         circle.classList.add('inhale');
         timerEl.innerText = count;
         
@@ -2791,25 +2886,40 @@
                 circle.classList.remove('inhale', 'exhale', 'hold');
                 if (phase === 0) {
                     circle.classList.add('inhale');
+                    phaseEl.innerText = 'شهيق';
+                    instructionEl.innerText = 'خذ شهيقاً عميقاً';
                 } else if (phase === 1) {
                     circle.classList.add('hold');
+                    phaseEl.innerText = 'احتباس';
+                    instructionEl.innerText = 'احبس النفس';
                 } else if (phase === 2) {
                     circle.classList.add('exhale');
+                    phaseEl.innerText = 'زفير';
+                    instructionEl.innerText = 'أخرج الزفير ببطء';
                 } else if (phase === 3) {
                     circle.classList.add('hold');
+                    phaseEl.innerText = 'احتباس';
+                    instructionEl.innerText = 'احبس النفس (فراغ)';
                 }
-            }
-            
-            if (phase === 3 && count === 0) {
-                clearInterval(App.breathTimer);
-                App.breathTimer = null;
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-play"></i> ابدأ';
-                circle.classList.remove('inhale', 'exhale', 'hold');
-                circle.classList.add('hold');
-                timerEl.innerText = '4';
-                if (addPoints(3)) App.save();
-                showToast('🧘‍♂️ تمرين التنفس مكتمل! +3 نقاط', 'success', 'استرخاء');
+                
+                // إذا أكملنا دورة (مرحلة 3 انتهت)، نزيد عداد الدورات
+                if (phase === 0) {
+                    cycle++;
+                    if (cycle >= totalCycles) {
+                        // اكتملت جميع الدورات
+                        clearInterval(App.breathTimer);
+                        App.breathTimer = null;
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-play"></i> ابدأ';
+                        circle.classList.remove('inhale', 'exhale', 'hold');
+                        circle.classList.add('hold');
+                        phaseEl.innerText = 'تم';
+                        instructionEl.innerText = 'أحسنت! +3 نقاط';
+                        timerEl.innerText = '4';
+                        if (addPoints(3)) App.save();
+                        showToast('🧘‍♂️ جلسة التنفس الكاملة مكتملة! +3 نقاط', 'success', 'استرخاء');
+                    }
+                }
             }
         }, 1000);
     }
