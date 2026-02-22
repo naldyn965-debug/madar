@@ -6,7 +6,7 @@
     <title>مَدار | الوعي والتمكين الدراسي</title>
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
-    <!-- Font Awesome 6 - مع fallback نصي -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -328,7 +328,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.3), 0 0 10px var(--accent-glow);
         }
 
-        /* قائمة الإشعارات - مع انيميشن سلس */
+        /* قائمة الإشعارات */
         .notifications-container {
             position: relative;
         }
@@ -658,7 +658,7 @@
         .choice-btn:hover:not(:disabled) { background: transparent; border-color: var(--accent); color: var(--accent); padding-right: 1.5rem; }
         .choice-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* ===== شريط التنقل السفلي - التصميم الاحترافي ===== */
+        /* ===== شريط التنقل السفلي ===== */
         .nav-bar {
             position: fixed;
             bottom: 1.5rem;
@@ -768,7 +768,6 @@
             background: var(--accent-glow);
         }
 
-        /* إصلاح لمشكلة iOS في عرض الأيقونات */
         .chat-attach-btn i, .chat-emoji-btn i {
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
@@ -780,7 +779,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* باقي الأنماط (إنجازات، أدوات، إلخ) */
+        /* باقي الأنماط */
         .badge-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; margin-top: 20px; }
         .badge-item { background: var(--glass); padding: 12px 6px; border-radius: 20px; text-align: center; border: 1px solid var(--glass); filter: grayscale(1); opacity: 0.4; transition: all 0.4s; display: flex; flex-direction: column; align-items: center; gap: 5px; }
         .badge-item i { font-size: 1.8rem; color: var(--accent); margin-bottom: 5px; }
@@ -838,7 +837,7 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* الدردشة - مع تحسينات iOS */
+        /* الدردشة */
         .chat-premium-container { 
             background: var(--bg-card); 
             backdrop-filter: blur(16px); 
@@ -851,7 +850,7 @@
             max-height: 70vh; 
             position: relative; 
             box-shadow: var(--shadow-premium);
-            -webkit-transform: translateZ(0); /* تحفيز تسريع الأجهزة */
+            -webkit-transform: translateZ(0);
             transform: translateZ(0);
         }
         .chat-header { padding: 14px 20px; background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass); display: flex; align-items: center; gap: 12px; }
@@ -871,7 +870,7 @@
             gap: 12px; 
             background: var(--bg-main); 
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; /* تحسين التمرير على iOS */
+            -webkit-overflow-scrolling: touch;
         }
         .chat-loading { text-align: center; color: var(--text-secondary); padding: 20px; }
         .chat-bubble-wrapper { display: flex; flex-direction: column; max-width: 80%; position: relative; animation: messageAppear 0.3s ease forwards; border-radius: 24px; }
@@ -1008,6 +1007,312 @@
         #awareness .card:nth-of-type(3) .grid { align-items: stretch; }
         #awareness .card:nth-of-type(3) .choice-btn { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; margin: 0; text-align: center; padding: 0.8rem 0.5rem; }
         #awareness .card:nth-of-type(3) .choice-btn i { margin-bottom: 0.4rem; font-size: 1.3rem; }
+
+        /* ===== أنماط كورس تنظيم الوقت ===== */
+        .course-container {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 2rem;
+            border: 2px solid var(--accent);
+            margin: 2rem 0;
+            box-shadow: var(--shadow-premium);
+        }
+        .course-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--glass);
+            padding-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .course-header i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            background: var(--accent-glow);
+            padding: 15px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .course-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            white-space: normal;
+            word-break: break-word;
+            flex: 1;
+            min-width: 200px;
+        }
+        .course-counter {
+            background: var(--accent-glow);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .topic-progress {
+            background: var(--glass);
+            border-radius: 40px;
+            padding: 0.8rem 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .topic-content {
+            min-height: 200px;
+            padding: 1.5rem;
+            background: var(--bg-main);
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            border-right: 4px solid var(--accent);
+        }
+        .topic-content h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .topic-text {
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        .series-note {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            border-top: 1px dashed var(--glass);
+            padding-top: 0.8rem;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .quiz-option {
+            background: var(--glass);
+            border: 1px solid var(--glass);
+            border-radius: 18px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1rem;
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .quiz-option:hover:not(:disabled) {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            transform: translateX(-5px);
+        }
+        .quiz-option.selected {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .quiz-option:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .quiz-feedback {
+            margin: 15px 0;
+            padding: 12px;
+            border-radius: 16px;
+            background: rgba(139, 92, 246, 0.15);
+            border-right: 4px solid var(--accent);
+        }
+        .retry-btn {
+            background: var(--glass);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: slideUp 0.4s ease;
+            justify-content: center;
+            width: fit-content;
+        }
+        .retry-btn:hover {
+            background: var(--accent-glow);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px var(--accent-glow);
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .course-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px;
+            width: 100%;
+        }
+        .nav-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass);
+            color: var(--text-primary);
+            padding: 0.8rem 0;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            flex: 1;
+            min-width: 0;
+            white-space: nowrap;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: var(--accent-glow);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px var(--accent-glow);
+        }
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .nav-btn.complete {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .nav-btn.complete:hover:not(:disabled) {
+            background: #a78bfa;
+        }
+        .quiz-status {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 600;
+            background: var(--accent-glow);
+            padding: 5px 15px;
+            border-radius: 50px;
+        }
+
+        /* تأثيرات الحركة */
+        .quiz-area {
+            transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.4s ease;
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 500px;
+            overflow: hidden;
+        }
+        .quiz-area.hide {
+            opacity: 0;
+            transform: translateY(-20px);
+            max-height: 0;
+            margin: 0;
+            padding: 0;
+        }
+        @keyframes correctPulse {
+            0% { box-shadow: 0 0 0 0 var(--gold); }
+            50% { box-shadow: 0 0 30px 10px var(--gold); }
+            100% { box-shadow: 0 0 0 0 var(--gold); }
+        }
+        .quiz-option.correct-highlight {
+            animation: correctPulse 1s ease;
+            border-color: var(--gold) !important;
+        }
+
+        /* ===== نافذة الاحتفال ===== */
+        .celebration-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px);
+            z-index: 11000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s ease;
+        }
+        .celebration-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .celebration-content {
+            background: var(--bg-card);
+            backdrop-filter: blur(30px);
+            border: 2px solid var(--gold);
+            border-radius: 60px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(251,191,36,0.3);
+            animation: celebrationPop 0.5s cubic-bezier(0.16,1,0.3,1);
+        }
+        @keyframes celebrationPop {
+            from { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+            to { transform: scale(1) rotate(0); opacity: 1; }
+        }
+        .celebration-content i {
+            font-size: 5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            animation: celebrationFloat 2s infinite ease-in-out;
+        }
+        @keyframes celebrationFloat {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        .celebration-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--gold), #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .celebration-content p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+        .celebration-content button {
+            background: linear-gradient(135deg, var(--gold), #f59e0b);
+            border: none;
+            color: #000;
+            font-weight: 700;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(251,191,36,0.4);
+        }
+        .celebration-content button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(251,191,36,0.6);
+        }
     </style>
 </head>
 <body>
@@ -1068,6 +1373,16 @@
 
 <!-- Toast Container -->
 <div id="toast-container" class="toast-container"></div>
+
+<!-- نافذة الاحتفال بإكمال الكورس -->
+<div id="celebration-modal" class="celebration-modal">
+    <div class="celebration-content">
+        <i class="fas fa-crown"></i>
+        <h2>تهانينا! 🎉</h2>
+        <p>لقد أكملت بنجاح جميع مواضيع <strong>كورس تنظيم الوقت</strong>! أنت الآن مستعد لتطبيق ما تعلمته في حياتك اليومية.</p>
+        <button onclick="closeCelebrationModal()"><i class="fas fa-check"></i> متابعة</button>
+    </div>
+</div>
 
 <!-- الشريط العلوي -->
 <nav>
@@ -1292,6 +1607,62 @@
             </div>
             <div class="scroll-indicator-container"><div class="scroll-progress-bar" id="bar3"></div></div>
         </div>
+
+        <!-- قسم كورس تنظيم الوقت الجديد تحت الفيديوهات (40 موضوع) -->
+        <div class="course-container" id="time-management-course">
+            <div class="course-header">
+                <i class="fas fa-clock"></i>
+                <div class="course-title">🎓 كورس تنظيم الوقت الشامل</div>
+                <div class="course-counter" id="course-counter">0 / 40</div>
+            </div>
+            
+            <!-- رسالة للمستخدمين غير المسجلين -->
+            <div id="course-auth-required" style="display: none; text-align: center; padding: 2rem; background: var(--bg-card); border-radius: 28px; border: 1px solid var(--accent);">
+                <i class="fas fa-lock" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3 style="margin-bottom: 1rem;">هذا الكورس حصري للأعضاء المسجلين</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">يرجى تسجيل الدخول أو إنشاء حساب للوصول إلى المحتوى الكامل.</p>
+                <button class="choice-btn" onclick="openAuthModal()" style="width: auto; margin: 0 auto; padding: 0.8rem 2rem;"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</button>
+            </div>
+
+            <!-- محتوى الكورس (يظهر فقط للمسجلين) -->
+            <div id="course-content" style="display: none;">
+                <!-- شريط التقدم -->
+                <div class="topic-progress">
+                    <i class="fas fa-book-open" style="color: var(--accent);"></i>
+                    <span id="course-progress-text">الموضوع 1 من 40</span>
+                    <span class="quiz-status" id="course-status">غير مكتمل</span>
+                </div>
+
+                <!-- محتوى الموضوع الحالي -->
+                <div id="topic-content" class="topic-content">
+                    <h3 id="topic-title">...</h3>
+                    <div id="topic-text" class="topic-text">جاري التحميل...</div>
+                    <!-- رسالة السلسلة -->
+                    <small class="series-note">هذا الموضوع جزء من سلسلة متكاملة مكونة من 40 موضوعاً لمساعدتك على إتقان تنظيم الوقت.</small>
+                </div>
+
+                <!-- منطقة الاختبار -->
+                <div id="quiz-area" class="quiz-area" style="display: none;">
+                    <h4 style="color: var(--accent); margin-bottom: 15px;">📝 اختبر فهمك</h4>
+                    <!-- زر إعادة المحاولة في الأعلى -->
+                    <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 15px;">
+                        <button id="retry-btn" class="retry-btn" onclick="resetQuizOptions()" style="display: none;"><i class="fas fa-redo-alt"></i> إعادة المحاولة</button>
+                    </div>
+                    <div id="quiz-question"></div>
+                    <!-- رسالة الفيدباك (تظهر فوق الخيارات) -->
+                    <div id="quiz-feedback" class="quiz-feedback" style="display: none;"></div>
+                    <div id="quiz-options" class="quiz-options"></div>
+                </div>
+
+                <!-- أزرار التنقل -->
+                <div class="course-nav">
+                    <button class="nav-btn" id="prev-topic" onclick="navigateTopic(-1)" disabled><i class="fas fa-arrow-right"></i> السابق</button>
+                    <button class="nav-btn" id="next-topic" onclick="navigateTopic(1)" disabled><i class="fas fa-arrow-left"></i> التالي</button>
+                    <button class="nav-btn complete" id="complete-topic" onclick="completeCurrentTopic()" style="display: none;"><i class="fas fa-check"></i> إتمام الموضوع</button>
+                </div>
+            </div>
+        </div>
+
         <div class="card" style="border: 1.5px solid var(--accent); background: radial-gradient(circle at top right, var(--bg-card), var(--accent-glow));">
             <span class="knowledge-tag"><i class="fas fa-lightbulb"></i> نصيحة وعي متجددة</span>
             <div id="daily-big-data"><h3>اضغط للحصول على نصيحة دراسية ذكية</h3></div>
@@ -1444,7 +1815,7 @@
     </section>
 </div>
 
-<!-- شريط التنقل السفلي - التصميم الاحترافي -->
+<!-- شريط التنقل السفلي -->
 <div class="nav-bar">
     <button class="nav-item active" id="nav-awareness" onclick="showPage('awareness')"><i class="fas fa-clock"></i><span>الوعي</span></button>
     <button class="nav-item" id="nav-tools" onclick="showPage('tools')"><i class="fas fa-tools"></i><span>الأدوات</span></button>
@@ -1515,6 +1886,409 @@
         'تعب': 'التعب رسالة تحتاج لراحة أو تغذية أو حركة. اسمع جسدك.',
         'وحيد': 'الوحدة شعور وليس حقيقة. تواصل مع شخص تثق به، أو اكتب ما تشعر به.'
     };
+
+    // ================== بيانات كورس تنظيم الوقت (40 موضوع) بمحتوى موسع ==================
+    const courseData = Array.from({ length: 40 }, (_, i) => {
+        const topics = [
+            "مقدمة: لماذا تنظيم الوقت؟",
+            "مصفوفة أيزنهاور: تحديد الأولويات",
+            "تقنية بومودورو (Pomodoro)",
+            "قاعدة الدقيقتين",
+            "تحديد الأهداف الذكية (SMART)",
+            "التغلب على التسويف",
+            "التخطيط الأسبوعي واليومي",
+            "إدارة المشتتات الرقمية",
+            "أهمية الراحة والنوم",
+            "مراجعة وتحسين مستمر",
+            "إدارة الطاقة مقابل إدارة الوقت",
+            "تقنية تايم بلوكينج (Time Blocking)",
+            "التعامل مع المهام غير المتوقعة",
+            "بناء عادات يومية منتجة",
+            "الحفاظ على التوازن بين الدراسة والحياة",
+            "تطبيقات عملية على مصفوفة أيزنهاور",
+            "كيف تبدأ يومك بنشاط",
+            "تحديد أوقات الذروة الإنتاجية",
+            "التخلص من الكمالية",
+            "فن التفويض",
+            "تنظيم البريد الإلكتروني",
+            "إدارة الاجتماعات الدراسية",
+            "استخدام التطبيقات في تنظيم الوقت",
+            "القراءة السريعة وتوفير الوقت",
+            "تقنيات الحفظ المتقدم",
+            "التحضير للامتحانات بذكاء",
+            "كتابة الملاحظات الفعالة",
+            "تنظيم مساحة العمل",
+            "تأثير التغذية على الإنتاجية",
+            "الرياضة وتأثيرها على التركيز",
+            "التأمل الذهني لتصفية الذهن",
+            "التغلب على الملل الدراسي",
+            "تحفيز الذات",
+            "التعامل مع الضغط النفسي",
+            "بناء شبكة علاقات داعمة",
+            "التعلم من التجارب السابقة",
+            "وضع خطة دراسية سنوية",
+            "الاستعداد للعام الدراسي",
+            "تقييم الأداء الذاتي",
+            "الختام: طريقك نحو النجاح"
+        ];
+        // محتوى موسع جداً لكل موضوع
+        const baseContent = [
+            "الوقت هو المورد الوحيد الذي لا يمكن استعادته. تنظيم الوقت لا يعني ملء كل دقيقة بالعمل، بل يعني تخصيص وقت للأولويات وتقليل التوتر. عندما تتعلم كيفية إدارة وقتك بفعالية، ستتمكن من إنجاز المزيد بجهد أقل، وستشعر بالسيطرة على حياتك بدلاً من أن تكون مرهقاً ومشتتاً. تذكر أن الوقت هو أغلى ما تملك، فاستثماره بحكمة هو مفتاح النجاح في جميع مجالات الحياة.",
+            "مصفوفة أيزنهاور تساعدك على تصنيف المهام إلى أربعة أنواع: مهم وعاجل (افعله فوراً)، مهم غير عاجل (خطط له)، غير مهم عاجل (فوّضه)، غير مهم غير عاجل (احذفه). هذا التصنيف يمنعك من الانشغال بالأمور العاجلة غير المهمة على حساب المهام الحقيقية التي تقربك من أهدافك. جرب كل أسبوع أن تصنف مهامك باستخدام هذه المصفوفة وستلاحظ تحسناً كبيراً في إنتاجيتك.",
+            "تقنية بومودورو تعتمد على العمل لـ 25 دقيقة متواصلة ثم أخذ استراحة 5 دقائق. بعد 4 دورات، خذ استراحة أطول (15-30 دقيقة). هذه التقنية رائعة للتغلب على المماطلة وزيادة التركيز، لأنها تقسم العمل إلى فترات قصيرة يمكن تحملها. كما أن المؤقت يخلق شعوراً بالإلحاح اللطيف الذي يدفعك للاستمرار. جربها اليوم وستندهش من كمية العمل الذي تنجزه.",
+            "إذا كان لديك مهمة تستغرق أقل من دقيقتين، قم بها فوراً. هذه القاعدة تمنع تراكم المهام الصغيرة التي قد تتحول إلى مصدر إزعاج وتوتر. مثلاً: الرد على بريد إلكتروني قصير، ترتيب مكتبك، أو إرسال رسالة سريعة. بتطبيق هذه القاعدة، ستبقي قائمة مهامك نظيفة وخالية من التفاهات، مما يتيح لك التركيز على ما هو أهم.",
+            "الأهداف الذكية هي: محددة، قابلة للقياس، قابلة للتحقيق، ذات صلة، محددة زمنياً. مثال: 'سأدرس فصل الرياضيات اليوم من الساعة 4 إلى 6 مساءً' بدلاً من 'سأدرس رياضيات'. عندما تحدد هدفك بدقة، يسهل عليك وضع خطة لتحقيقه وتتبع تقدمك. الأهداف الغامضة تؤدي إلى نتائج غامضة، لذا احرص دائماً على صياغة أهدافك بطريقة SMART.",
+            "التسويف ليس مشكلة إدارة وقت، بل إدارة عواطف. استخدم تقنية 'الخمس دقائق': ابدأ المهمة لمدة 5 دقائق فقط، وغالباً ما ستستمر بعدها. السبب أن البدء هو أصعب خطوة، وبمجرد أن تبدأ، يقل القلق وتزداد الثقة. أيضاً، حاول فهم المشاعر التي تدفعك للتسويف: هل هو خوف من الفشل؟ كمالية؟ تعب؟ معالجتها أهم من معالجة الوقت نفسه.",
+            "خصص 15 دقيقة كل مساء لتخطيط اليوم التالي، و30 دقيقة كل جمعة لتخطيط الأسبوع القادم. هذا التخطيط يمنحك رؤية واضحة ويمنعك من البدء صباحاً وأنت مشتت. اكتب المهام الثلاث الأهم لليوم التالي، وحدد أوقاتها. التخطيط الليلي يريح عقلك لأنك تضع المهام على الورق، مما يقلل من التفكير الزائد أثناء النوم.",
+            "حدد مصادر التشتيت الرئيسية وتعامل معها: أغلق الإشعارات، استخدم سماعات عازلة للضوضاء، خصص أوقاتاً محددة لتفقد البريد. التشتيت الرقمي من أكبر معوقات الإنتاجية. حاول أن تجعل هاتفك في غرفة أخرى أثناء الدراسة، أو استخدم تطبيقات تحجب المواقع المشتتة. تذكر أن كل إشعار يقطع تركيزك ويحتاج عدة دقائق لاستعادته.",
+            "النوم الجيد يزيد الإنتاجية والتركيز. حاول النوم 7-8 ساعات يومياً. خذ فترات راحة قصيرة بين المهام. النوم ليس ترفاً، بل ضرورة لصحة دماغك. أثناء النوم، يعالج الدماغ المعلومات ويقوي الذاكرة. إذا كنت تشعر بالنعاس أثناء الدراسة، خذ قيلولة قصيرة (20 دقيقة) بدلاً من شرب المنبهات التي قد تعطل نومك الليلي.",
+            "في نهاية كل أسبوع، راجع ما أنجزته وما يمكن تحسينه. اسأل نفسك: ما هي أهم ثلاثة إنجازات هذا الأسبوع؟ ما هي التحديات التي واجهتها؟ كيف يمكنني تحسين أدائي الأسبوع المقبل؟ المراجعة المنتظمة تساعدك على التعلم من أخطائك والاحتفال بنجاحاتك، مما يحفزك للاستمرار.",
+            "الوقت محدود، لكن الطاقة متغيرة. ركز على أداء المهام الصعبة عندما تكون طاقتك في أعلى مستوياتها (صباحاً غالباً). تعرف على أوقات ذروتك (صباحاً أم مساءً) وخصص لها المهام الإبداعية أو الصعبة. في أوقات انخفاض الطاقة، قم بمهام روتينية أو استرح. إدارة الطاقة أهم من إدارة الوقت.",
+            "تايم بلوكينج يعني تخصيص فترات زمنية محددة لمهام معينة بدلاً من الاعتماد على قائمة مهام مفتوحة. مثلاً: 'من 9-10 البريد الإلكتروني، من 10-12 مشروع X'. هذا يمنع المهام من التمدد ويخلق هيكلاً لليوم. كما أنه يقلل من التردد (ماذا أعمل الآن؟) لأن كل وقت له مهمة محددة.",
+            "ستواجه دائماً مقاطعات ومهام طارئة. خصص وقتاً في جدولك للمهام غير المتوقعة (مثلاً ساعة يومياً). إذا لم تحدث مقاطعات، استخدم هذا الوقت للإنجاز الإضافي. التخطيط للمرونة يمنع الإحباط عندما تظهر مفاجآت، لأنك كنت مستعداً لها.",
+            "العادات تجعل السلوك تلقائياً. ابدأ بعادة صغيرة جداً (مثل قراءة صفحة واحدة يومياً) وزدها تدريجياً. لا تحاول تغيير كل شيء دفعة واحدة. اختر عادة واحدة وركز عليها لمدة 30 يوماً حتى تصبح جزءاً من روتينك. قوة العادات تكمن في تراكمها: تحسن بسيط يومي يؤدي إلى نتائج مذهلة على المدى الطويل.",
+            "النجاح الحقيقي يتطلب توازناً. خصص وقتاً للراحة، والهوايات، والعلاقات الاجتماعية. العمل المستمر دون توقف يؤدي إلى الإرهاق والاحتراق الوظيفي. جدولك يجب أن يتضمن وقتاً للعائلة، والأصدقاء، والتمارين الرياضية، والنوم. التوازن يجعلك أكثر إنتاجية وسعادة على المدى البعيد.",
+            "طبق مصفوفة أيزنهاور على مهامك الأسبوعية وحدد أولوياتك بدقة. اكتب جميع مهامك ثم صنفها إلى: مهم وعاجل (افعلها فوراً)، مهم غير عاجل (خطط لها في جدولك)، غير مهم عاجل (حاول تفويضها)، غير مهم غير عاجل (احذفها بلا تردد). هذا التمرين سيفتح عينيك على مقدار الوقت الذي تهدره في التفاهات.",
+            "ابدأ يومك بوجبة فطور صحية وتمارين خفيفة، ثم ابدأ بأصعب مهمة. الصباح هو وقت ذروة الطاقة لمعظم الناس. لا تبدأ يومك بتصفح وسائل التواصل أو الرد على الرسائل، بل ابدأ مباشرة بالمهمة الأكثر أهمية. هذا يمنحك شعوراً بالإنجاز ويحفزك لبقية اليوم.",
+            "اكتشف أوقات ذروتك (صباحاً أم مساءً) وخصص لها المهام الإبداعية. بعض الناس مبدعون صباحاً، وآخرون في المساء. جرب العمل في أوقات مختلفة ولاحظ متى تكون أفكارك أفضل وأكثر إبداعاً. ثم نظم جدولك بحيث تكون المهام التي تتطلب إبداعاً في تلك الأوقات.",
+            "الكمالية عدو الإنجاز. تقبل أن النسخة الأولى قد تكون غير مثالية. السر في التقدم هو أن تبدأ ثم تحسن. لا تنتظر حتى تكون الظروف مثالية أو الفكرة كاملة. ابدأ، وستتحسن مع الممارسة. تذكر أن عملاً غير كامل أنجزته خير من عمل مثالي لم تبدأه أبداً.",
+            "تعلم تفويض المهام غير المهمة للآخرين لتتفرغ للأهم. لا تحاول أن تفعل كل شيء بنفسك. إذا كان هناك من يمكنه القيام بالمهمة بنسبة 80% من جودتك، ففوضها له. وقتك ثمين، استثمره في المهام التي لا يمكن لأحد غيرك القيام بها.",
+            "خصص أوقاتاً محددة لتفقد البريد الإلكتروني (مثلاً مرتين يومياً) بدلاً من فتحه باستمرار. البريد الإلكتروني يمكن أن يكون مصدر تشتيت كبير. حدد وقتاً للرد على الرسائل مرة في الصباح ومرة بعد الظهر، وأغلق الإشعارات بقية اليوم. ستجد أنك أنجزت أكثر.",
+            "اجعل الاجتماعات الدراسية قصيرة ومركزة بجدول أعمال واضح. قبل الاجتماع، أرسل جدول الأعمال واطلب من الحضور الاستعداد. حدد وقتاً محدداً للانتهاء والتزم به. الاجتماعات الطويلة غير المنظمة مضيعة للوقت.",
+            "استخدم تطبيقات مثل Trello أو Notion لتنظيم مهامك ومشاريعك. هذه الأدوات تساعدك على تصور مهامك وتتبع تقدمك. جرب عدة تطبيقات واختر ما يناسب أسلوب عملك. الأدوات الرقمية توفر وقتاً وجهداً كبيرين إذا استخدمتها بشكل صحيح.",
+            "تعلم تقنيات القراءة السريعة مثل التصفح والمسح الضوئي لتوفير الوقت. لا تحتاج لقراءة كل كلمة في كل نص. تعلم كيف تلتقط الأفكار الرئيسية بسرعة. هذا مهم جداً للطلاب الذين لديهم كميات كبيرة من المواد الدراسية.",
+            "استخدم تقنيات مثل التكرار المتباعد والخرائط الذهنية للحفظ السريع. التكرار المتباعد يعني مراجعة المعلومات على فترات متزايدة (بعد يوم، أسبوع، شهر). الخرائط الذهنية تساعد على تنظيم المعلومات بصرياً. هذه التقنيات مثبتة علمياً لتحسين الذاكرة.",
+            "ضع خطة للمذاكرة قبل الامتحانات بوقت كافٍ، ولا تترك كل شيء لليلة الاختبار. المذاكرة المتقطعة (على مدى أسابيع) أكثر فعالية من المذاكرة المكثفة (في ليلة واحدة). خطط لمراجعة المواد بشكل دوري، وستصل للامتحان وأنت واثق.",
+            "دوّن ملاحظاتك بطريقة منظمة باستخدام عناوين ونقاط رئيسية. لا تكتب كل ما يقوله المحاضر، بل ركز على الأفكار الرئيسية والأمثلة. استخدم ألواناً مختلفة أو رموزاً لتمييز المعلومات المهمة. الملاحظات الجيدة توفر وقتاً كبيراً عند المراجعة.",
+            "نظّم مكتبك ومكان دراستك لتقليل المشتتات وزيادة التركيز. المكتب المرتب يخلق ذهناً مرتباً. تخلص من الفوضى، واحتفظ فقط بما تحتاجه. استخدم إضاءة جيدة وكرسي مريح. بيئة العمل تؤثر بشكل كبير على إنتاجيتك.",
+            "تناول أطعمة صحية مثل المكسرات والفواكه والخضروات لتعزيز طاقتك الذهنية. تجنب الأطعمة السكرية والدهون المشبعة التي تسبب الخمول. اشرب كمية كافية من الماء. التغذية السليمة تدعم وظائف الدماغ وتحسن الذاكرة والتركيز.",
+            "ممارسة الرياضة لمدة 30 دقيقة يومياً تحسن المزاج وتزيد التركيز. الرياضة تزيد تدفق الدم إلى الدماغ وتحفز إفراز هرمونات السعادة. لا تحتاج لتمارين عنيفة؛ المشي السريع كافٍ. حاول دمج الرياضة في روتينك اليومي.",
+            "التأمل لـ 10 دقائق يومياً يساعد على تصفية الذهن وتقليل التوتر. التأمل يحسن التركيز والذاكرة ويقلل من القلق. ابدأ بتطبيقات مثل Headspace أو Calm، أو ببساطة اجلس وركز على أنفاسك. التأمل مهارة تتحسن مع الممارسة.",
+            "غيّر روتينك الدراسي بين الحين والآخر لتجنب الملل (مثلاً غيّر المكان أو الطريقة). الدراسة في نفس المكان وبنفس الطريقة يومياً قد تسبب الملل وتقلل الفعالية. جرب الدراسة في مقهى هادئ، أو حديقة، أو باستخدام بطاقات تعليمية. التجديد يحفز الدماغ.",
+            "كافئ نفسك بعد إنجاز المهام، واستخدم الحديث الإيجابي مع الذات. المكافآت تعزز السلوك الإيجابي. بعد إنجاز مهمة صعبة، كافئ نفسك باستراحة قصيرة، أو وجبة خفيفة مفضلة، أو مشاهدة فيديو. تحدث مع نفسك بلطف وشجعها.",
+            "عندما تشعر بالضغط، خذ نفساً عميقاً وذكّر نفسك بأنك قادر على التغلب. التنفس العميق يهدئ الجهاز العصبي. استخدم تقنيات التنفس مثل 4-4-4-4 (شهيق 4 ثوان، احتباس 4، زفير 4، احتباس 4). هذا يساعد على استعادة التركيز والهدوء.",
+            "ابحث عن أصدقاء داعمين يشاركونك أهدافك الدراسية. الدراسة مع مجموعة يمكن أن تزيد التحفيز وتتيح تبادل المعرفة. شارك في مجموعات دراسية، أو ابحث عن رفيق للمذاكرة. الدعم الاجتماعي عامل مهم للنجاح.",
+            "تعلّم من أخطائك السابقة وطوّر خططك باستمرار. لا تنظر للفشل على أنه نهاية، بل كفرصة للتعلم. حلل ما حدث، ولماذا حدث، وكيف يمكنك تحسين أدائك في المرة القادمة. التجربة والخطأ جزء من عملية النمو.",
+            "ضع خطة دراسية سنوية تحدد فيها المواد التي ستدرسها والمواعيد المهمة. هذا يمنحك نظرة شاملة على العام الدراسي ويساعدك على توزيع الجهد بشكل متوازن. خطط للعطلات وأوقات الراحة أيضاً.",
+            "استعد للعام الدراسي قبل بدايته بتجهيز المستلزمات وتحديث الجدول. لا تنتظر حتى اليوم الأول. جهز كتبك ودفاترك، ونظم مساحة دراستك، واجدد أهدافك. الاستعداد المسبق يقلل التوتر ويمنحك بداية قوية.",
+            "قيّم أداءك نهاية كل شهر من خلال اختبارات قصيرة ومراجعة الإنجازات. التقييم المنتظم يساعدك على معرفة نقاط قوتك وضعفك. هل أنت ملتزم بجدولك؟ هل تفهم المواد؟ استخدم هذه المعلومات لتعديل خطتك.",
+            "تذكر أن تنظيم الوقت رحلة وليس وجهة. استمر في التطوير ولا تيأس من البدايات البسيطة. كل خطوة صغيرة تقربك من هدفك. احتفل بتقدمك، وتعلم من أخطائك، واستمتع بالرحلة."
+        ];
+        return {
+            title: `${i+1}. ${topics[i % topics.length]}`,
+            content: baseContent[i % baseContent.length]
+        };
+    });
+
+    // ================== أسئلة الكورس (40 سؤال) ==================
+    const courseQuestions = [
+        { question: "ما هو الهدف الأساسي من تنظيم الوقت؟", options: ["ملء كل دقيقة بالعمل", "تخصيص وقت للأولويات وتقليل التوتر", "إنجاز أكبر قدر من المهام", "تجنب النوم"], correct: 1 },
+        { question: "ما هي مصفوفة أيزنهاور؟", options: ["أداة لتصنيف المهام حسب الأهمية والعجلة", "جدول زمني للمذاكرة", "تقنية للقراءة السريعة", "نظام لتحديد الأهداف"], correct: 0 },
+        { question: "كم دقيقة تستغرق جلسة بومودورو الأساسية؟", options: ["15 دقيقة", "25 دقيقة", "50 دقيقة", "10 دقائق"], correct: 1 },
+        { question: "متى تطبق قاعدة الدقيقتين؟", options: ["عند وجود مهمة تستغرق أقل من دقيقتين", "عند بداية أي مهمة", "عند نهاية اليوم", "عند الشعور بالتسويف"], correct: 0 },
+        { question: "ما معنى اختصار SMART في الأهداف؟", options: ["محددة، قابلة للقياس، قابلة للتحقيق، ذات صلة، محددة زمنياً", "سهلة، متوسطة، صعبة، واقعية، طويلة المدى", "سريعة، ملموسة، مرتبة، مكتوبة، صارمة", "مهمة، ملحة، ضرورية، عاجلة، متكررة"], correct: 0 },
+        { question: "التسويف هو مشكلة في إدارة:", options: ["الوقت فقط", "العواطف والمشاعر", "المهام", "العلاقات"], correct: 1 },
+        { question: "كم دقيقة يُنصح بتخصيصها للتخطيط اليومي؟", options: ["5 دقائق", "15 دقيقة", "30 دقيقة", "ساعة"], correct: 1 },
+        { question: "ما هي أفضل طريقة للتعامل مع المشتتات الرقمية؟", options: ["إغلاق الإشعارات وتحديد أوقات لتفقد البريد", "استخدام الهاتف أثناء الدراسة", "البقاء متصلاً بالإنترنت دائماً", "الدراسة مع فتح وسائل التواصل"], correct: 0 },
+        { question: "ما هو تأثير النوم الجيد على الإنتاجية؟", options: ["يزيد الإنتاجية والتركيز", "يقلل الإنتاجية", "لا تأثير له", "يجعلك تشعر بالكسل"], correct: 0 },
+        { question: "ما هو الغرض من المراجعة الأسبوعية؟", options: ["تقييم الإنجازات وتحديد نقاط التحسين", "إضافة مهام جديدة فقط", "الراحة وعدم العمل", "مضاعفة المهام"], correct: 0 },
+        { question: "إدارة الطاقة تعني:", options: ["التركيز على المهام الصعبة عندما تكون طاقتك عالية", "العمل بنفس الوتيرة طوال اليوم", "تجنب الراحة", "العمل لساعات طويلة"], correct: 0 },
+        { question: "ما هي تقنية تايم بلوكينج؟", options: ["تخصيص فترات زمنية محددة لمهام معينة", "العمل على مهمة واحدة حتى الانتهاء", "استخدام مؤقت للعمل", "تقسيم المهام إلى أجزاء صغيرة"], correct: 0 },
+        { question: "كيف تتعامل مع المهام غير المتوقعة؟", options: ["تخصيص وقت فراغ في الجدول لها", "تجاهلها", "إضافتها فوراً دون تخطيط", "القلق منها"], correct: 0 },
+        { question: "ما هي أفضل طريقة لبناء عادة جديدة؟", options: ["البدء بعادة صغيرة جداً وتدريجياً زيادتها", "البدء بعادة كبيرة مرة واحدة", "الانتظار حتى يكون لديك دافع قوي", "تكرار العادة عدة مرات في اليوم"], correct: 0 },
+        { question: "كيف تحقق التوازن بين الدراسة والحياة؟", options: ["تخصيص وقت للراحة والهوايات والعلاقات", "الدراسة طوال الوقت", "إهمال الدراسة للترفيه", "العمل دون توقف"], correct: 0 },
+        { question: "عند تطبيق مصفوفة أيزنهاور، المهم غير العاجل يتم:", options: ["تخطيطه لوقت لاحق", "فعله فوراً", "تفويضه", "حذفه"], correct: 0 },
+        { question: "ما هي أفضل طريقة لبدء اليوم بنشاط؟", options: ["وجبة فطور صحية وتمارين خفيفة ثم أصعب مهمة", "تصفح وسائل التواصل أولاً", "النوم حتى آخر لحظة", "بدون تخطيط"], correct: 0 },
+        { question: "أوقات الذروة الإنتاجية هي:", options: ["الأوقات التي تكون فيها طاقتك في أعلى مستوياتها", "أوقات الليل فقط", "أوقات الصباح فقط", "أي وقت من اليوم"], correct: 0 },
+        { question: "كيف تتغلب على الكمالية؟", options: ["تقبل أن النسخة الأولى قد تكون غير مثالية", "السعي للكمال في كل شيء", "تأجيل المهام حتى تكون مثالية", "الانتقاد الدائم للذات"], correct: 0 },
+        { question: "ما هو التفويض؟", options: ["تكليف الآخرين ببعض المهام", "القيام بكل المهام بنفسك", "تأجيل المهام", "إلغاء المهام"], correct: 0 },
+        { question: "كم مرة يُنصح بتفقد البريد الإلكتروني يومياً؟", options: ["مرة أو مرتين", "كل ساعة", "باستمرار", "مرة في الأسبوع"], correct: 0 },
+        { question: "كيف تجعل الاجتماعات الدراسية فعالة؟", options: ["بوضع جدول أعمال واضح", "بدون تحضير", "بإطالة الوقت", "بدون أهداف"], correct: 0 },
+        { question: "ما هي فائدة استخدام تطبيقات تنظيم الوقت مثل Trello؟", options: ["تنظيم المهام والمشاريع", "إضاعة الوقت", "التواصل الاجتماعي", "التسلية"], correct: 0 },
+        { question: "ما هي القراءة السريعة؟", options: ["تقنيات لتصفح النص بسرعة واستخلاص المعلومات", "قراءة النص كلمة كلمة", "القراءة بصوت عالٍ", "تخطي الصفحات"], correct: 0 },
+        { question: "ما هو التكرار المتباعد في الحفظ؟", options: ["مراجعة المعلومات على فترات متزايدة", "تكرار المعلومة مرة واحدة", "الحفظ دون مراجعة", "قراءة المعلومات مراراً في نفس اليوم"], correct: 0 },
+        { question: "كيف تستعد للامتحانات بذكاء؟", options: ["بوضع خطة مذاكرة قبل الامتحان بوقت كافٍ", "بالسهر ليلة الامتحان", "بترك كل شيء لآخر لحظة", "بدون خطة"], correct: 0 },
+        { question: "ما هي أفضل طريقة لكتابة الملاحظات؟", options: ["باستخدام عناوين ونقاط رئيسية", "بكتابة كل كلمة", "بدون تنظيم", "بتصوير الكتاب"], correct: 0 },
+        { question: "تنظيم مساحة العمل يساعد على:", options: ["زيادة التركيز وتقليل المشتتات", "تشتيت الانتباه", "إضاعة الوقت", "لا فائدة منه"], correct: 0 },
+        { question: "ما هو تأثير التغذية على الإنتاجية؟", options: ["الأطعمة الصحية تعزز الطاقة الذهنية", "لا تأثير", "الأكل يجعلك كسولاً", "يجب الأكل بكثرة"], correct: 0 },
+        { question: "الرياضة تؤثر على التركيز بـ:", options: ["تحسين المزاج وزيادة التركيز", "تسبيب التعب", "لا تؤثر", "تشتيت الانتباه"], correct: 0 },
+        { question: "ما هو التأمل الذهني؟", options: ["ممارسة لتصفية الذهن وتقليل التوتر", "الجلوس دون حركة", "التفكير في الماضي", "تخيل المستقبل"], correct: 0 },
+        { question: "كيف تتغلب على الملل الدراسي؟", options: ["بتغيير الروتين بين الحين والآخر", "بترك الدراسة", "بالاستمرار بنفس الطريقة", "بالاستسلام"], correct: 0 },
+        { question: "ما هي أفضل طريقة لتحفيز الذات؟", options: ["مكافأة النفس بعد إنجاز المهام", "توبيخ النفس", "انتظار التحفيز الخارجي", "تجاهل الإنجازات"], correct: 0 },
+        { question: "كيف تتعامل مع الضغط النفسي؟", options: ["بأخذ نفس عميق وتذكير النفس بالقدرة على التغلب", "بالاستسلام", "بالهروب", "بتجاهل المشاعر"], correct: 0 },
+        { question: "بناء شبكة علاقات داعمة يعني:", options: ["البحث عن أصدقاء يشاركونك أهدافك الدراسية", "العزلة", "التواصل مع الجميع", "المنافسة فقط"], correct: 0 },
+        { question: "كيف تتعلم من التجارب السابقة؟", options: ["بتحليل الأخطاء وتطوير الخطط", "بتجاهل الأخطاء", "بتكرار نفس الأخطاء", "بلوم الذات"], correct: 0 },
+        { question: "الخطة الدراسية السنوية تساعد على:", options: ["تحديد المواد والمواعيد المهمة", "الارتباك", "زيادة الضغط", "لا فائدة منها"], correct: 0 },
+        { question: "الاستعداد للعام الدراسي يتضمن:", options: ["تجهيز المستلزمات وتحديث الجدول", "الانتظار حتى بداية العام", "شراء كتب جديدة فقط", "أخذ إجازة طويلة"], correct: 0 },
+        { question: "تقييم الأداء الذاتي يتم عن طريق:", options: ["اختبارات قصيرة ومراجعة الإنجازات", "مقارنة النفس بالآخرين", "الرضا الدائم", "النقد المستمر"], correct: 0 },
+        { question: "الختام: طريقك نحو النجاح يتطلب:", options: ["استمرار التطوير وعدم اليأس من البدايات البسيطة", "الكمال الفوري", "الوصول السريع", "التوقف عند أول نجاح"], correct: 0 }
+    ];
+
+    // ================== متغيرات الكورس ==================
+    let currentTopicIndex = 0;
+    let completedTopics = new Array(courseData.length).fill(false);
+
+    // ================== دوال الكورس ==================
+    async function initCourse() {
+        const authRequired = document.getElementById('course-auth-required');
+        const courseContent = document.getElementById('course-content');
+        
+        if (!auth.currentUser) {
+            authRequired.style.display = 'block';
+            courseContent.style.display = 'none';
+            return;
+        } else {
+            authRequired.style.display = 'none';
+            courseContent.style.display = 'block';
+        }
+        
+        const progress = await loadCourseProgress();
+        if (progress) {
+            completedTopics = progress.completed || completedTopics;
+            currentTopicIndex = progress.lastIndex || 0;
+        } else {
+            completedTopics.fill(false);
+            currentTopicIndex = 0;
+        }
+        loadTopic(currentTopicIndex);
+        updateCourseCounter();
+    }
+
+    function loadTopic(index) {
+        const topic = courseData[index];
+        document.getElementById('topic-title').innerText = topic.title;
+        document.getElementById('topic-text').innerHTML = topic.content.replace(/\n/g, '<br>');
+        document.getElementById('course-progress-text').innerText = `الموضوع ${index+1} من ${courseData.length}`;
+
+        const prevBtn = document.getElementById('prev-topic');
+        const nextBtn = document.getElementById('next-topic');
+        const completeBtn = document.getElementById('complete-topic');
+        const quizArea = document.getElementById('quiz-area');
+        const retryBtn = document.getElementById('retry-btn');
+
+        prevBtn.disabled = (index === 0);
+        
+        if (completedTopics[index]) {
+            quizArea.style.display = 'none';
+            completeBtn.style.display = 'none';
+            nextBtn.disabled = (index === courseData.length - 1);
+            document.getElementById('course-status').innerText = '✅ مكتمل';
+            document.getElementById('course-status').style.color = 'var(--success)';
+            return;
+        }
+
+        quizArea.style.display = 'block';
+        quizArea.classList.remove('hide');
+        completeBtn.style.display = 'inline-block';
+        completeBtn.disabled = true;
+
+        if (retryBtn) retryBtn.style.display = 'none';
+
+        const question = courseQuestions[index];
+        displayQuestion(question);
+
+        document.getElementById('course-status').innerText = '⏳ غير مكتمل';
+        document.getElementById('course-status').style.color = 'var(--warning)';
+    }
+
+    function displayQuestion(q) {
+        document.getElementById('quiz-question').innerHTML = `<p style="font-weight:600; margin-bottom:10px;">${q.question}</p>`;
+        
+        const options = q.options.map((opt, idx) => ({ text: opt, correct: idx === q.correct }));
+        for (let i = options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [options[i], options[j]] = [options[j], options[i]];
+        }
+        let optionsHtml = '';
+        options.forEach((opt, i) => {
+            optionsHtml += `<div class="quiz-option" onclick="selectQuizOption(${i}, ${opt.correct})" id="opt-${currentTopicIndex}-${i}">${opt.text}</div>`;
+        });
+        document.getElementById('quiz-options').innerHTML = optionsHtml;
+        const correctIndex = options.findIndex(opt => opt.correct);
+        document.getElementById('quiz-options').dataset.correctIndex = correctIndex;
+        
+        document.querySelectorAll('.quiz-option').forEach(el => el.classList.remove('selected', 'correct-highlight'));
+        document.querySelectorAll('.quiz-option').forEach(el => {
+            el.style.opacity = '';
+            el.style.display = '';
+            el.disabled = false;
+            el.style.cursor = 'pointer';
+        });
+        document.getElementById('quiz-feedback').style.display = 'none';
+    }
+
+    function selectQuizOption(optionIndex, isCorrect) {
+        if (completedTopics[currentTopicIndex]) return;
+        
+        const feedbackDiv = document.getElementById('quiz-feedback');
+        const retryBtn = document.getElementById('retry-btn');
+        
+        document.querySelectorAll('.quiz-option').forEach(el => {
+            el.disabled = true;
+            el.style.cursor = 'not-allowed';
+        });
+        
+        document.querySelectorAll('.quiz-option').forEach(el => el.classList.remove('selected'));
+        
+        const selectedEl = document.getElementById(`opt-${currentTopicIndex}-${optionIndex}`);
+        selectedEl.classList.add('selected');
+        
+        if (isCorrect) {
+            document.querySelectorAll('.quiz-option').forEach(el => {
+                if (el !== selectedEl) {
+                    el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    el.style.opacity = '0';
+                    el.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        el.style.display = 'none';
+                    }, 300);
+                } else {
+                    el.classList.add('correct-highlight');
+                }
+            });
+            
+            feedbackDiv.style.display = 'block';
+            feedbackDiv.innerHTML = '<i class="fas fa-crown" style="color:var(--gold); font-size:1.5rem;"></i> إجابة صحيحة! أحسنت';
+            feedbackDiv.style.backgroundColor = 'rgba(139, 92, 246, 0.2)';
+            feedbackDiv.style.borderRightColor = 'var(--accent)';
+            feedbackDiv.style.textAlign = 'center';
+            feedbackDiv.style.fontSize = '1.2rem';
+            feedbackDiv.style.padding = '1rem';
+            
+            document.getElementById('complete-topic').disabled = false;
+            
+            if (retryBtn) retryBtn.style.display = 'none';
+        } else {
+            feedbackDiv.style.display = 'block';
+            feedbackDiv.innerHTML = '<i class="fas fa-exclamation-triangle" style="color:var(--danger);"></i> ❌ إجابة خاطئة، حاول مرة أخرى';
+            feedbackDiv.style.backgroundColor = 'rgba(248, 113, 113, 0.2)';
+            feedbackDiv.style.borderRightColor = 'var(--danger)';
+            
+            if (retryBtn) retryBtn.style.display = 'inline-flex';
+            
+            document.getElementById('complete-topic').disabled = true;
+        }
+    }
+
+    function resetQuizOptions() {
+        const options = document.querySelectorAll('.quiz-option');
+        options.forEach(el => {
+            el.disabled = false;
+            el.style.cursor = 'pointer';
+            el.style.opacity = '';
+            el.style.display = '';
+            el.style.transform = '';
+            el.classList.remove('selected', 'correct-highlight');
+        });
+        
+        document.getElementById('quiz-feedback').style.display = 'none';
+        document.getElementById('retry-btn').style.display = 'none';
+    }
+
+    function completeCurrentTopic() {
+        const selected = document.querySelector('.quiz-option.selected');
+        if (!selected) {
+            showToast('اختر إجابة أولاً', 'warning');
+            return;
+        }
+        
+        const index = currentTopicIndex;
+        completedTopics[index] = true;
+
+        showToast('🎉 أحسنت! أكملت الموضوع', 'success');
+
+        const quizArea = document.getElementById('quiz-area');
+        quizArea.classList.add('hide');
+        
+        document.getElementById('complete-topic').style.display = 'none';
+        document.getElementById('course-status').innerText = '✅ مكتمل';
+        document.getElementById('course-status').style.color = 'var(--success)';
+
+        if (index < courseData.length - 1) {
+            document.getElementById('next-topic').disabled = false;
+        }
+
+        saveCourseProgress();
+        updateCourseCounter();
+
+        if (completedTopics.every(v => v)) {
+            showCelebrationModal();
+        }
+    }
+
+    function updateCourseCounter() {
+        const completedCount = completedTopics.filter(v => v).length;
+        document.getElementById('course-counter').innerText = `${completedCount} / ${courseData.length}`;
+    }
+
+    function navigateTopic(direction) {
+        const newIndex = currentTopicIndex + direction;
+        if (newIndex < 0 || newIndex >= courseData.length) return;
+
+        if (!completedTopics[currentTopicIndex] && direction > 0) {
+            if (!confirm('الموضوع الحالي لم يكتمل بعد. هل تريد الانتقال للموضوع التالي؟')) {
+                return;
+            }
+        }
+
+        currentTopicIndex = newIndex;
+        loadTopic(currentTopicIndex);
+        document.getElementById('prev-topic').disabled = (currentTopicIndex === 0);
+        const nextBtn = document.getElementById('next-topic');
+        if (currentTopicIndex === courseData.length - 1) {
+            nextBtn.disabled = true;
+        } else {
+            nextBtn.disabled = !completedTopics[currentTopicIndex];
+        }
+    }
+
+    function saveCourseProgress() {
+        const progress = {
+            completed: completedTopics,
+            lastIndex: currentTopicIndex
+        };
+        if (auth.currentUser) {
+            db.collection('users').doc(auth.currentUser.uid).set({
+                courseProgress: progress
+            }, { merge: true }).catch(err => console.error(err));
+        } else {
+            localStorage.setItem('madar_course_progress', JSON.stringify(progress));
+        }
+    }
+
+    function loadCourseProgress() {
+        return new Promise((resolve) => {
+            if (auth.currentUser) {
+                db.collection('users').doc(auth.currentUser.uid).get()
+                    .then(doc => {
+                        if (doc.exists && doc.data().courseProgress) {
+                            resolve(doc.data().courseProgress);
+                        } else {
+                            resolve(null);
+                        }
+                    })
+                    .catch(() => resolve(null));
+            } else {
+                const saved = localStorage.getItem('madar_course_progress');
+                if (saved) {
+                    try {
+                        resolve(JSON.parse(saved));
+                    } catch { resolve(null); }
+                } else {
+                    resolve(null);
+                }
+            }
+        });
+    }
+
+    // ================== نافذة الاحتفال ==================
+    function showCelebrationModal() {
+        document.getElementById('celebration-modal').classList.add('show');
+    }
+
+    function closeCelebrationModal() {
+        document.getElementById('celebration-modal').classList.remove('show');
+    }
 
     // ================== متغيرات الدردشة ==================
     let currentReplyTo = null;
@@ -2076,6 +2850,7 @@
                 this.renderAchievements();
                 updateUserMenu();
                 updateNotifications();
+                initCourse();
             });
 
             window.addEventListener('resize', this.debounce(() => {
@@ -2317,7 +3092,7 @@
         },
 
         initLeaderboard() {
-            db.collection('users').orderBy('points', 'desc').limit(10).onSnapshot(snapshot => {
+            db.collection('users').orderBy('points', 'desc').onSnapshot(snapshot => {
                 const users = snapshot.docs.map(doc => ({ 
                     id: doc.data().id || "مبادر", 
                     points: doc.data().points || 0 
@@ -2331,7 +3106,7 @@
                 }
 
                 let html = '';
-                users.forEach((u, index) => {
+                users.slice(0, 10).forEach((u, index) => {
                     const rank = index + 1;
                     let rankClass = 'leaderboard-rank-regular';
                     let itemClass = '';
@@ -2763,13 +3538,11 @@
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         document.getElementById('nav-'+id).classList.add('active');
         
-        // حل مشكلة iOS: فرض إعادة التصيير
         document.body.style.display = 'none';
-        void document.body.offsetHeight; // قوة دفع
+        void document.body.offsetHeight;
         document.body.style.display = '';
         
         if (id === 'community') {
-            // تأخير بسيط لضمان تحميل DOM على iOS
             setTimeout(() => {
                 App.initChatPremium();
             }, 50);
@@ -2779,7 +3552,6 @@
             App.chatInitialized = false;
         }
         
-        // تحديث المحتوى عند العودة للصفحة
         setTimeout(() => {
             if (id === 'profile') {
                 App.renderAchievements();
@@ -2791,13 +3563,8 @@
             if (id === 'awareness') {
                 App.applyTaskStates();
             }
-            // إعادة ضبط أيقونات الدردشة
-            if (id === 'community') {
-                // التأكد من ظهور أيقونات المرفقات والإيموجي
-                const attachBtn = document.querySelector('.chat-attach-btn i');
-                const emojiBtn = document.querySelector('.chat-emoji-btn i');
-                if (attachBtn) attachBtn.style.display = 'inline-block';
-                if (emojiBtn) emojiBtn.style.display = 'inline-block';
+            if (id === 'highschool') {
+                initCourse();
             }
         }, 100);
     }
@@ -3380,6 +4147,12 @@
             }
         }
     }
+
+    // ربط دوال الكورس
+    window.selectQuizOption = selectQuizOption;
+    window.completeCurrentTopic = completeCurrentTopic;
+    window.resetQuizOptions = resetQuizOptions;
+    window.closeCelebrationModal = closeCelebrationModal;
 
     // بدء التطبيق
     document.addEventListener('DOMContentLoaded', () => App.init());
